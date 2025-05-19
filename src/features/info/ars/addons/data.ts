@@ -16,7 +16,6 @@ export type Categories = (typeof categories[number])["value"];
 interface Addon {
     id: string;
     categories: Categories[];
-    featured?: boolean;
     channel?: string;
 }
 
@@ -24,7 +23,6 @@ export const addons: Record<string, Addon> = {
     "ars-additions": {
         id: "974408",
         categories: ["essential"],
-        featured: true,
         channel: "1207058223421595749",
     },
     "ars-controle": {
@@ -35,7 +33,6 @@ export const addons: Record<string, Addon> = {
     "ars-technica": {
         id: "1096161",
         categories: ["supplemental", "compat"],
-        featured: true,
         channel: "1281613727824613467",
     },
     "ars-creo": {
@@ -56,7 +53,6 @@ export const addons: Record<string, Addon> = {
     "not-enough-glyphs": {
         id: "1023517",
         categories: ["essential"],
-        featured: true,
         channel: "1222861594657030205"
     },
     "ars-trinkets": {
@@ -87,8 +83,7 @@ export const addons: Record<string, Addon> = {
     "ars-elemental": {
         id: "561470",
         categories: ["essential"],
-        featured: true,
-        channel: "1235001538611511357",
+        channel: "1019900714044100699",
     },
     "ars-scalaes": {
         id: "630431",
@@ -216,6 +211,11 @@ export const addons: Record<string, Addon> = {
         categories: ["compat"],
         channel: "1321449687047340082",
     },
+    "ars-numerichud": {
+        id: "1221985",
+        categories: ["supplemental"],
+        channel: "1353092379628011650"
+    }
 };
 
 interface Version {
