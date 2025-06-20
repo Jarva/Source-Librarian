@@ -26,29 +26,33 @@ export const cache = new LRUCache<string, CacheEntry>({
   allowStaleOnFetchRejection: true,
   allowStaleOnFetchAbort: true,
   fetchMethod: async (key) => {
-    const res = await client.get(key);
-    if (key === "Jarva/ArsAddonBuilder/glyphs.json") {
-      return {
-        type: "GlyphCache",
-        entries: await res.json(),
-      };
-    }
-    if (key === "Jarva/ArsAddonBuilder/lang/en_us.json") {
-      return {
-        type: "LangCache",
-        entries: await res.json(),
-      };
-    }
-    if (key.startsWith("Jarva/ArsAddonBuilder/resources")) {
-      const image = await res.blob();
-      const buffer = await image.arrayBuffer();
-      const resized = await sharp(buffer)
-        .resize(128, null, { kernel: "nearest" })
-        .toBuffer();
-      return {
-        type: "TextureCache",
-        entries: new Blob([resized], { type: image.type }),
-      };
+    try {
+      const res = await client.get(key);
+      if (key === "Jarva/ArsAddonBuilder/output/glyphs.json") {
+        return {
+          type: "GlyphCache",
+          entries: await res.json(),
+        };
+      }
+      if (key === "Jarva/ArsAddonBuilder/output/lang/en_us.json") {
+        return {
+          type: "LangCache",
+          entries: await res.json(),
+        };
+      }
+      if (key.startsWith("Jarva/ArsAddonBuilder/output/resources")) {
+        const image = await res.blob();
+        const buffer = await image.arrayBuffer();
+        const resized = await sharp(buffer)
+            .resize(128, null, {kernel: "nearest"})
+            .toBuffer();
+        return {
+          type: "TextureCache",
+          entries: new Blob([resized], {type: image.type}),
+        };
+      }
+    } catch (error) {
+      console.log(error);
     }
   },
 });

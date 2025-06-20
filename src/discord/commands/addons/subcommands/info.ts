@@ -1,14 +1,13 @@
 import {
   APIEmbedField,
-  ApplicationCommandOptionType,
   AutocompleteInteraction,
   Command,
   CommandInteraction,
   CommandOptions,
   Embed,
 } from "@buape/carbon";
-import { userTarget } from "../../../helpers/user-target.ts";
-import { addons, choices } from "../addons.ts";
+import { userTargetOption } from "../../../helpers/user-target.ts";
+import {addonAutocomplete, addonOption, addons} from "../addons.ts";
 import { getMention, isEphemeral } from "../../../helpers/ephemeral.ts";
 import { cache } from "../addon-cache.ts";
 import { time, TimestampStyles } from "@discordjs/formatters";
@@ -19,28 +18,12 @@ export class AddonInfoCommand extends Command {
   description = "Information for a specific Ars addon";
 
   options: CommandOptions = [
-    {
-      name: "name",
-      type: ApplicationCommandOptionType.String,
-      description: "The name of the Ars Addon",
-      autocomplete: true,
-      required: true,
-    },
-    userTarget,
+    addonOption,
+    userTargetOption,
   ];
 
   async autocomplete(interaction: AutocompleteInteraction) {
-    const { name: option, value } = interaction.options.getFocused()!;
-    if (value === undefined) {
-      const chosen = choices.slice(0, 25);
-      return await interaction.respond(chosen);
-    }
-
-    if (option == "name" && typeof value === "string") {
-      const chosen = choices.filter((choice) => choice.name.includes(value))
-        .slice(0, 25);
-      return await interaction.respond(chosen);
-    }
+    return await addonAutocomplete(interaction);
   }
 
   async run(interaction: CommandInteraction) {
@@ -48,14 +31,16 @@ export class AddonInfoCommand extends Command {
       ephemeral: isEphemeral(interaction),
     });
 
-    const id = interaction.options.getString("name");
+    const id = interaction.options.getString("addon");
     if (id === undefined) {
       return interaction.reply({
-        content: "No Addon ID provided",
+        content: "No Addon provided",
       });
     }
 
-    const mod = await cache.fetch(id, { signal: AbortSignal.timeout(5000) });
+    const addon = addons[id];
+
+    const mod = await cache.fetch(addon.id, { signal: AbortSignal.timeout(5000) });
     if (mod === undefined) {
       return await interaction.reply({
         content: "Unable to retrieve addon data",
@@ -87,8 +72,6 @@ export class AddonInfoCommand extends Command {
     if (mod.source != null) {
       fields.push({ name: "Source", value: `${mod.source}` });
     }
-
-    const addon = Object.values(addons).find((val) => val.id === id);
 
     if (addon && addon.channel) {
       fields.push({

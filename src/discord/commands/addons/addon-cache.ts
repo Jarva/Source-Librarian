@@ -30,39 +30,43 @@ export const cache = new LRUCache<string, Mod>({
   allowStaleOnFetchRejection: true,
   allowStaleOnFetchAbort: true,
   fetchMethod: async (key) => {
-    const root = await client.get<Root>(`mods/${key}`).json();
+    try {
+      const root = await client.get<Root>(`mods/${key}`).json();
 
-    if (root == null) {
-      throw new Error("Unable to retrieve mod");
+      if (root == null) {
+        throw new Error("Unable to retrieve mod");
+      }
+
+      const {data: mod} = root;
+
+      const supported = mod.latestFilesIndexes.filter((version) =>
+          SUPPORTED_VERSIONS.includes(version.gameVersion)
+      );
+      const released = supported.filter((version) => version.releaseType === 1);
+      const deduped = released.filter((version, index, self) =>
+          self.findIndex((other) => other.gameVersion === version.gameVersion) ===
+          index
+      );
+
+      const versions = deduped.map((file) => ({
+        name: file.gameVersion,
+        link: `${mod.links.websiteUrl}/files/${file.fileId}`,
+      }));
+
+      return {
+        name: mod.name,
+        link: mod.links.websiteUrl,
+        summary: mod.summary,
+        author: mod.authors[0].name,
+        logo: mod.logo.url,
+        versions: versions,
+        last_updated: new Date(mod.dateReleased),
+        download_count: mod.downloadCount,
+        issues: mod.links.issuesUrl,
+        source: mod.links.sourceUrl,
+      };
+    } catch (error) {
+      console.log(error);
     }
-
-    const { data: mod } = root;
-
-    const supported = mod.latestFilesIndexes.filter((version) =>
-      SUPPORTED_VERSIONS.includes(version.gameVersion)
-    );
-    const released = supported.filter((version) => version.releaseType === 1);
-    const deduped = released.filter((version, index, self) =>
-      self.findIndex((other) => other.gameVersion === version.gameVersion) ===
-        index
-    );
-
-    const versions = deduped.map((file) => ({
-      name: file.gameVersion,
-      link: `${mod.links.websiteUrl}/files/${file.fileId}`,
-    }));
-
-    return {
-      name: mod.name,
-      link: mod.links.websiteUrl,
-      summary: mod.summary,
-      author: mod.authors[0].name,
-      logo: mod.logo.url,
-      versions: versions,
-      last_updated: new Date(mod.dateReleased),
-      download_count: mod.downloadCount,
-      issues: mod.links.issuesUrl,
-      source: mod.links.sourceUrl,
-    };
   },
 });

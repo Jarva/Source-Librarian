@@ -15,8 +15,8 @@ export const categories = [
     description: "Focused on increasing the players power level.",
   },
   {
-    name: "Supplementals",
-    value: "supplemental",
+    name: "Supplementary",
+    value: "supplementary",
     description: "Focused on adding new content.",
   },
   {

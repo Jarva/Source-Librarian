@@ -13,7 +13,7 @@ export const getMod = (namespace: string) => {
 };
 
 export const getTranslation = async (key: string) => {
-  const lang = await cache.fetch("Jarva/ArsAddonBuilder/lang/en_us.json");
+  const lang = await cache.fetch("Jarva/ArsAddonBuilder/output/lang/en_us.json");
 
   if (lang === undefined || lang.type !== "LangCache") {
     return null;
@@ -30,7 +30,7 @@ export const getImage = async (
   const [textureNS, texturePath] = texture.split(":");
 
   const parts = [
-    "Jarva/ArsAddonBuilder/resources/",
+    "Jarva/ArsAddonBuilder/output/resources/",
     mod,
     "/assets/",
     textureNS,

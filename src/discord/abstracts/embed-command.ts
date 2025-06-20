@@ -6,7 +6,7 @@ import {
   Embed,
   InteractionContextType,
 } from "npm:@buape/carbon";
-import { userTarget } from "../helpers/user-target.ts";
+import { userTargetOption } from "../helpers/user-target.ts";
 import { getEphemeral, getMention } from "../helpers/ephemeral.ts";
 
 export abstract class BaseEmbedCommand extends Command {
@@ -19,7 +19,7 @@ export abstract class BaseEmbedCommand extends Command {
   extraFields: APIEmbedField[] = [];
 
   options: CommandOptions = [
-    userTarget,
+    userTargetOption,
   ];
 
   contexts: InteractionContextType[] = [InteractionContextType.Guild];

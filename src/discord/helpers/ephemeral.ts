@@ -3,22 +3,22 @@ import {
   CommandInteraction,
   MessageFlags,
 } from "@buape/carbon";
-import { userTarget } from "./user-target.ts";
+import { userTargetOption } from "./user-target.ts";
 import { mention } from "./mention.ts";
 
 export const isEphemeral = (
   interaction: CommandInteraction,
-  target: APIApplicationCommandBasicOption = userTarget,
+  target: APIApplicationCommandBasicOption = userTargetOption,
 ) => !interaction.options.getUser(target.name);
 
 export const getEphemeral = (
   interaction: CommandInteraction,
-  target: APIApplicationCommandBasicOption = userTarget,
+  target: APIApplicationCommandBasicOption = userTargetOption,
 ) => isEphemeral(interaction, target) ? MessageFlags.Ephemeral : 0;
 
 export const getMention = (
   interaction: CommandInteraction,
-  target: APIApplicationCommandBasicOption = userTarget,
+  target: APIApplicationCommandBasicOption = userTargetOption,
 ) => {
   const user = interaction.options.getUser(target.name);
   if (user) return mention(user);

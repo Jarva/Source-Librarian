@@ -6,6 +6,7 @@ import { ManaCommand } from "./commands/mana.ts";
 import { LogsCommand } from "./commands/logs.ts";
 import { EnchantingCommand } from "./commands/enchanting.ts";
 import { AddonsCommand } from "./commands/addons/command.ts";
+import { LagCommand } from "./commands/lag.ts";
 
 export default [
   new IframesCommand(),
@@ -15,4 +16,5 @@ export default [
   new LogsCommand(),
   new ManaCommand(),
   new AddonsCommand(),
+  new LagCommand(),
 ] as Command[];

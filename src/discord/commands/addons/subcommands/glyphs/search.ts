@@ -6,7 +6,7 @@ import {
   CommandOptions,
   Embed,
 } from "@buape/carbon";
-import { userTarget } from "../../../../helpers/user-target.ts";
+import { userTargetOption } from "../../../../helpers/user-target.ts";
 import { getMention, isEphemeral } from "../../../../helpers/ephemeral.ts";
 import { cache } from "../../../../http/github-cdn/cache.ts";
 import { cache as addonCache } from "../../addon-cache.ts";
@@ -31,7 +31,7 @@ export class AddonGlyphsSearchCommand extends Command {
       description: "The name of the Glyph",
       required: true,
     },
-    userTarget,
+    userTargetOption,
   ];
 
   async run(interaction: CommandInteraction) {
@@ -46,7 +46,7 @@ export class AddonGlyphsSearchCommand extends Command {
       });
     }
 
-    const glyphCache = await cache.fetch("Jarva/ArsAddonBuilder/glyphs.json", {
+    const glyphCache = await cache.fetch("Jarva/ArsAddonBuilder/output/glyphs.json", {
       signal: AbortSignal.timeout(5000),
     });
 

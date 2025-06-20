@@ -4,6 +4,7 @@ import {
   InteractionContextType,
 } from "@buape/carbon";
 import { AddonGlyphsSearchCommand } from "./glyphs/search.ts";
+import {AddonGlyphsListCommand} from "./glyphs/list.ts";
 
 export class AddonsGlyphsCommand extends CommandWithSubcommands {
   name = "glyphs";
@@ -11,5 +12,5 @@ export class AddonsGlyphsCommand extends CommandWithSubcommands {
 
   contexts: InteractionContextType[] = [InteractionContextType.Guild];
 
-  subcommands: Command[] = [new AddonGlyphsSearchCommand()];
+  subcommands: Command[] = [new AddonGlyphsSearchCommand(), new AddonGlyphsListCommand()];
 }

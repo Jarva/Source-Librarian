@@ -3,7 +3,7 @@ import {
   ApplicationCommandOptionType,
 } from "npm:@buape/carbon";
 
-export const userTarget: APIApplicationCommandBasicOption = {
+export const userTargetOption: APIApplicationCommandBasicOption = {
   name: "user",
   type: ApplicationCommandOptionType.User,
   description: "User to ping",
