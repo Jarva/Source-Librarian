@@ -9,6 +9,7 @@ const env = Deno.env.toObject();
 export const client = new Client({
   baseUrl: env.BASE_URL,
   disableDeployRoute: true,
+  autoDeploy: true,
   clientId: env.DISCORD_CLIENT_ID,
   publicKey: env.DISCORD_PUBLIC_KEY,
   token: env.DISCORD_TOKEN,

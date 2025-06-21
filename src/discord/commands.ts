@@ -7,6 +7,7 @@ import { LogsCommand } from "./commands/logs.ts";
 import { EnchantingCommand } from "./commands/enchanting.ts";
 import { AddonsCommand } from "./commands/addons/command.ts";
 import { LagCommand } from "./commands/lag.ts";
+import { InfiniteGlyphsCommand } from "./commands/infinite-glyphs.ts";
 
 export default [
   new IframesCommand(),
@@ -17,4 +18,5 @@ export default [
   new ManaCommand(),
   new AddonsCommand(),
   new LagCommand(),
+  new InfiniteGlyphsCommand(),
 ] as Command[];
