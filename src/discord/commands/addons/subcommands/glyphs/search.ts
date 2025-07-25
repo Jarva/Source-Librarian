@@ -59,7 +59,7 @@ export class AddonGlyphsSearchCommand extends Command {
     const entries = Object.values(glyphCache.entries);
 
     const fuse = new Fuse(entries, { keys: [{ name: "name", weight: 10 }, "description"] });
-    const matches = fuse.search(query);
+    const matches = fuse.search(query, { limit: 1 });
     if (matches.length === 0) {
       return await interaction.reply({
         content: "Unable to find that glyph",
