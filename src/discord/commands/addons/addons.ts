@@ -231,14 +231,20 @@ export const addonOption: APIApplicationCommandBasicOption = {
   autocomplete: true,
 };
 
+export const getAddonOption = (required: boolean): APIApplicationCommandBasicOption => ({
+  ...addonOption,
+  required,
+});
+
 export const addonAutocomplete = async (interaction: AutocompleteInteraction): Promise<void> => {
   const { name: option, value } = interaction.options.getFocused()!;
+  if (option !== addonOption.name) return;
   if (value === undefined) {
     const chosen = choices.slice(0, 25);
     return await interaction.respond(chosen);
   }
 
-  if (option == addonOption.name && typeof value === "string") {
+  if (typeof value === "string") {
     const chosen = choices.filter((choice) => choice.name.includes(value))
         .slice(0, 25);
     return await interaction.respond(chosen);

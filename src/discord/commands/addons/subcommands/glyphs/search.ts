@@ -17,7 +17,7 @@ import {
   getTranslation,
 } from "../../../../http/github-cdn/glyphs/helpers.ts";
 import { addons } from "../../addons.ts";
-import { search } from "npm:fast-fuzzy";
+import Fuse from "npm:fuse.js";
 import { capitalize } from "../../../../helpers/capitalize.ts";
 
 export class AddonGlyphsSearchCommand extends Command {
@@ -56,14 +56,15 @@ export class AddonGlyphsSearchCommand extends Command {
       });
     }
 
-    const matches = search(query, Object.keys(glyphCache.entries));
+    const fuse = new Fuse(Object.keys(glyphCache.entries));
+    const matches = fuse.search(query);
     if (matches.length === 0) {
       return await interaction.reply({
         content: "Unable to find that glyph",
       });
     }
 
-    const [key] = matches;
+    const [{ item: key }] = matches;
     const data = glyphCache.entries[key];
 
     const [namespace, path] = data.registryName.split(":");

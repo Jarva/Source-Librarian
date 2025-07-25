@@ -7,7 +7,7 @@ import {
   Embed,
 } from "@buape/carbon";
 import { userTargetOption } from "../../../helpers/user-target.ts";
-import {addonAutocomplete, addonOption, addons} from "../addons.ts";
+import {addonAutocomplete, addons, getAddonOption} from "../addons.ts";
 import { getMention, isEphemeral } from "../../../helpers/ephemeral.ts";
 import { cache } from "../addon-cache.ts";
 import { time, TimestampStyles } from "@discordjs/formatters";
@@ -15,10 +15,10 @@ import { channelMention } from "../../../helpers/mention.ts";
 
 export class AddonInfoCommand extends Command {
   name = "info";
-  description = "Information for a specific Ars addon";
+  description = "Information about Ars addons";
 
   options: CommandOptions = [
-    addonOption,
+    getAddonOption(false),
     userTargetOption,
   ];
 
