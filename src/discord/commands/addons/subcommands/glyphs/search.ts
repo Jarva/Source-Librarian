@@ -56,7 +56,9 @@ export class AddonGlyphsSearchCommand extends Command {
       });
     }
 
-    const fuse = new Fuse(Object.keys(glyphCache.entries));
+    const entries = Object.values(glyphCache.entries);
+
+    const fuse = new Fuse(entries, { keys: [{ name: "name", weight: 10 }, "description"] });
     const matches = fuse.search(query);
     if (matches.length === 0) {
       return await interaction.reply({
@@ -64,8 +66,7 @@ export class AddonGlyphsSearchCommand extends Command {
       });
     }
 
-    const [{ item: key }] = matches;
-    const data = glyphCache.entries[key];
+    const [{ item: data }] = matches;
 
     const [namespace, path] = data.registryName.split(":");
     const mod = getMod(namespace);
