@@ -1,5 +1,5 @@
 import { APIEmbedField } from "npm:@buape/carbon";
-import { BaseEmbedCommand } from "../abstracts/embed-command.ts";
+import { BaseEmbedCommand } from "@/discord/abstracts/embed-command.ts";
 
 const lines = [
     "Spark is the best available tool for debugging lag. It provides more accurate reports as to what is causing the lag, but it doesn't show where in the world the lag is occuring. This is the one use-case that I'd recommend using Observable for.",

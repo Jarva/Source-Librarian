@@ -1,10 +1,10 @@
 import { LRUCache } from "npm:lru-cache";
-import { client } from "./client.ts";
-import { ExportedGlyph } from "./glyphs/types.ts";
+import { client } from "@/discord/http/github-cdn/client.ts";
+import { ExportedGlyph } from "@/discord/http/github-cdn/glyphs/types.ts";
 import sharp from "npm:sharp";
-import { PATHS } from "./paths.ts";
-import { logger } from "../../../logger.ts";
-import { CONFIG } from "../../../config.ts";
+import { PATHS } from "@/discord/http/github-cdn/paths.ts";
+import { logger } from "@/logger.ts";
+import { CONFIG } from "@/config.ts";
 
 interface GlyphCache {
   type: "GlyphCache";

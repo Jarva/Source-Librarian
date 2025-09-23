@@ -1,5 +1,5 @@
 import { APIEmbedField } from "npm:@buape/carbon";
-import { BaseEmbedCommand } from "../abstracts/embed-command.ts";
+import { BaseEmbedCommand } from "@/discord/abstracts/embed-command.ts";
 
 const lines = [
   "Upload your log file to [mclo.gs](https://mclo.gs/) so that people can help easier, not everyone is on their PC all the time and having a easily formatted searchable link is much easier for debugging.",

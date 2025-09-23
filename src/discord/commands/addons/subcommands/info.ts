@@ -6,14 +6,14 @@ import {
   CommandOptions,
   Embed,
 } from "npm:@buape/carbon";
-import { userTargetOption } from "../../../helpers/user-target.ts";
-import {addonAutocomplete, addons, getAddonOption} from "../addons.ts";
-import { getMention, isEphemeral } from "../../../helpers/ephemeral.ts";
-import { cache } from "../addon-cache.ts";
+import { userTargetOption } from "@/discord/helpers/user-target.ts";
+import {addonAutocomplete, addons, getAddonOption} from "@/discord/commands/addons/addons.ts";
+import { getMention, isEphemeral } from "@/discord/helpers/ephemeral.ts";
+import { cache } from "@/discord/commands/addons/addon-cache.ts";
 import { time, TimestampStyles } from "npm:@discordjs/formatters";
-import { channelMention } from "../../../helpers/mention.ts";
-import { logger } from "../../../logger.ts";
-import { CONFIG } from "../../../config.ts";
+import { channelMention } from "@/discord/helpers/mention.ts";
+import { logger } from "@/logger.ts";
+import { CONFIG } from "@/config.ts";
 
 export class AddonInfoCommand extends Command {
   name = "info";

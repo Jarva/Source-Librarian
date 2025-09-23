@@ -1,4 +1,4 @@
-import { BaseEmbedCommand } from "../abstracts/embed-command.ts";
+import { BaseEmbedCommand } from "@/discord/abstracts/embed-command.ts";
 
 const lines = [
   "- Learn all the glyphs you can. By default each glyph gives you 15 mana and 0.33 mana regen.",

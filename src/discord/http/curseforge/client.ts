@@ -1,5 +1,5 @@
 import ky from "npm:ky";
-import { requireEnv } from "../../helpers/env.ts";
+import { requireEnv } from "@/helpers/env.ts";
 
 const { CURSEFORGE_API_KEY } = requireEnv(["CURSEFORGE_API_KEY"] as const);
 

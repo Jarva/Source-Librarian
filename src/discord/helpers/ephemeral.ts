@@ -3,8 +3,8 @@ import {
   CommandInteraction,
   MessageFlags,
 } from "npm:@buape/carbon";
-import { userTargetOption } from "./user-target.ts";
-import { mention } from "./mention.ts";
+import { userTargetOption } from "@/discord/helpers/user-target.ts";
+import { mention } from "@/discord/helpers/mention.ts";
 
 export const isEphemeral = (
   interaction: CommandInteraction,

@@ -2,9 +2,9 @@ import "npm:dotenv/config";
 import { Client } from "npm:@buape/carbon";
 import { createHandler } from "npm:@buape/carbon/adapters/fetch";
 import { ShardingPlugin } from "npm:@buape/carbon/sharding";
-import { Ready } from "./listeners/ready.ts";
-import commands from "./commands.ts";
-import { requireEnv } from "../helpers/env.ts";
+import { Ready } from "@/discord/listeners/ready.ts";
+import commands from "@/discord/commands.ts";
+import { requireEnv } from "@/helpers/env.ts";
 
 const env = requireEnv([
   "BASE_URL",

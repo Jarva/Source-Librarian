@@ -1,5 +1,5 @@
 import { APIEmbedField } from "npm:@buape/carbon";
-import { BaseEmbedCommand } from "../abstracts/embed-command.ts";
+import { BaseEmbedCommand } from "@/discord/abstracts/embed-command.ts";
 
 const lines = [
   "Lots of spells in Ars Nouveau use fake players under the hood to achieve their effects, so you may need to trust the player Ars_Nouveau (or its UUID) inside your chunks.",

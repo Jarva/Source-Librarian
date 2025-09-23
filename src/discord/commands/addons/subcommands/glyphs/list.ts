@@ -1,14 +1,14 @@
 import { Command, CommandOptions, AutocompleteInteraction, CommandInteraction, APIEmbedField, Embed, MessagePayloadObject } from "npm:@buape/carbon";
-import {addonAutocomplete, addonOption, addons} from "../../addons.ts";
-import {userTargetOption} from "../../../../helpers/user-target.ts";
-import {isEphemeral} from "../../../../helpers/ephemeral.ts";
-import {getMod, getTranslation} from "../../../../http/github-cdn/glyphs/helpers.ts";
-import {ExportedGlyph} from "../../../../http/github-cdn/glyphs/types.ts";
-import {capitalize} from "../../../../helpers/capitalize.ts";
+import {addonAutocomplete, addonOption, addons} from "@/discord/commands/addons/addons.ts";
+import {userTargetOption} from "@/discord/helpers/user-target.ts";
+import {isEphemeral} from "@/discord/helpers/ephemeral.ts";
+import {getMod, getTranslation} from "@/discord/http/github-cdn/glyphs/helpers.ts";
+import {ExportedGlyph} from "@/discord/http/github-cdn/glyphs/types.ts";
+import {capitalize} from "@/discord/helpers/capitalize.ts";
 import { Paginator } from "npm:@buape/carbon/paginator";
-import { logger } from "../../../../logger.ts";
-import { CONFIG } from "../../../../config.ts";
-import { fetchGlyphCache, fetchAddonMod } from "../../shared/glyph-utils.ts";
+import { logger } from "@/logger.ts";
+import { CONFIG } from "@/config.ts";
+import { fetchGlyphCache, fetchAddonMod } from "@/discord/commands/addons/shared/glyph-utils.ts";
 
 export class AddonGlyphsListCommand extends Command {
     name = "list";

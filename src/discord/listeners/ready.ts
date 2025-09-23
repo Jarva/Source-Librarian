@@ -4,7 +4,7 @@ import {
   ListenerEventData,
   ReadyListener,
 } from "npm:@buape/carbon";
-import { logger } from "../../logger.ts";
+import { logger } from "@/logger.ts";
 
 export class Ready extends ReadyListener {
   async handle(

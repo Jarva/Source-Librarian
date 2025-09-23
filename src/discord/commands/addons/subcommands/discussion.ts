@@ -4,11 +4,11 @@ import {
   CommandInteraction,
   CommandOptions,
 } from "npm:@buape/carbon";
-import { userTargetOption } from "../../../helpers/user-target.ts";
-import {addonAutocomplete, addonOption, addons} from "../addons.ts";
-import { getMention, isEphemeral } from "../../../helpers/ephemeral.ts";
-import { channelMention } from "../../../helpers/mention.ts";
-import { logger } from "../../../logger.ts";
+import { userTargetOption } from "@/discord/helpers/user-target.ts";
+import {addonAutocomplete, addonOption, addons} from "@/discord/commands/addons/addons.ts";
+import { getMention, isEphemeral } from "@/discord/helpers/ephemeral.ts";
+import { channelMention } from "@/discord/helpers/mention.ts";
+import { logger } from "@/logger.ts";
 
 export class AddonDiscussionCommand extends Command {
   name = "discussion";

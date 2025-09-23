@@ -1,4 +1,4 @@
-import { BaseEmbedCommand } from "../abstracts/embed-command.ts";
+import { BaseEmbedCommand } from "@/discord/abstracts/embed-command.ts";
 
 const lines = [
   "I-Frames or Immunity Frames, are durations where a player is invulnerable to damage. Ways to bypass these immunity frames are referred to as I-Frame Skips.",

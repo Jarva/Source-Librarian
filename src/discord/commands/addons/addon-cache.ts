@@ -1,9 +1,9 @@
 import { LRUCache } from "npm:lru-cache";
-import { addons } from "./addons.ts";
-import { Root } from "../../http/curseforge/types.ts";
-import { client } from "../../http/curseforge/client.ts";
-import { logger } from "../../../logger.ts";
-import { CONFIG } from "../../../config.ts";
+import { addons } from "@/discord/commands/addons/addons.ts";
+import { Root } from "@/discord/http/curseforge/types.ts";
+import { client } from "@/discord/http/curseforge/client.ts";
+import { logger } from "@/logger.ts";
+import { CONFIG } from "@/config.ts";
 
 interface Version {
   name: string;
@@ -40,7 +40,7 @@ export const cache = new LRUCache<string, Mod>({
       const { data: mod } = root;
 
       const supported = mod.latestFilesIndexes.filter((version) =>
-        CONFIG.SUPPORTED_VERSIONS.includes(version.gameVersion)
+        CONFIG.SUPPORTED_VERSIONS.includes(version.gameVersion as any)
       );
       const released = supported.filter((version) => version.releaseType === 1);
       const deduped = released.filter((version, index, self) =>

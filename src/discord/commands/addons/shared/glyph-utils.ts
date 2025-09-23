@@ -1,9 +1,9 @@
-import { cache } from "../../../http/github-cdn/cache.ts";
-import { cache as addonCache } from "../addon-cache.ts";
-import { PATHS } from "../../../http/github-cdn/paths.ts";
-import { CONFIG } from "../../../../config.ts";
-import { logger } from "../../../../logger.ts";
-import { addons } from "../addons.ts";
+import { cache } from "@/discord/http/github-cdn/cache.ts";
+import { cache as addonCache } from "@/discord/commands/addons/addon-cache.ts";
+import { PATHS } from "@/discord/http/github-cdn/paths.ts";
+import { CONFIG } from "@/config.ts";
+import { logger } from "@/logger.ts";
+import { addons } from "@/discord/commands/addons/addons.ts";
 
 export interface GlyphFetchResult {
   success: true;

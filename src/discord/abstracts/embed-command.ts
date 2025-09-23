@@ -6,9 +6,9 @@ import {
   Embed,
   InteractionContextType,
 } from "npm:@buape/carbon";
-import { userTargetOption } from "../helpers/user-target.ts";
-import { getEphemeral, getMention } from "../helpers/ephemeral.ts";
-import { CONFIG } from "../../config.ts";
+import { userTargetOption } from "@/discord/helpers/user-target.ts";
+import { getEphemeral, getMention } from "@/discord/helpers/ephemeral.ts";
+import { CONFIG } from "@/config.ts";
 
 export abstract class BaseEmbedCommand extends Command {
   abstract name: string;

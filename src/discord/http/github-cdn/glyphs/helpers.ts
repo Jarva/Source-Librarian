@@ -1,6 +1,6 @@
-import { cache } from "../cache.ts";
+import { cache } from "@/discord/http/github-cdn/cache.ts";
 import { type MessagePayloadFile } from "npm:@buape/carbon";
-import { PATHS } from "../paths.ts";
+import { PATHS } from "@/discord/http/github-cdn/paths.ts";
 
 export const getMod = (namespace: string) => {
   switch (namespace) {

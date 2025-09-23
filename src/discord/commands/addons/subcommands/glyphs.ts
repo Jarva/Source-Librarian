@@ -3,8 +3,8 @@ import {
   CommandWithSubcommands,
   InteractionContextType,
 } from "npm:@buape/carbon";
-import { AddonGlyphsSearchCommand } from "./glyphs/search.ts";
-import {AddonGlyphsListCommand} from "./glyphs/list.ts";
+import { AddonGlyphsSearchCommand } from "@/discord/commands/addons/subcommands/glyphs/search.ts";
+import {AddonGlyphsListCommand} from "@/discord/commands/addons/subcommands/glyphs/list.ts";
 
 export class AddonsGlyphsCommand extends CommandWithSubcommands {
   name = "glyphs";

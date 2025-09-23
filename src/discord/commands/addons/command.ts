@@ -4,9 +4,9 @@ import {
   CommandWithSubcommands,
   InteractionContextType,
 } from "npm:@buape/carbon";
-import { AddonInfoCommand } from "./subcommands/info.ts";
-import { AddonsGlyphsCommand } from "./subcommands/glyphs.ts";
-import {AddonDiscussionCommand} from "./subcommands/discussion.ts";
+import { AddonInfoCommand } from "@/discord/commands/addons/subcommands/info.ts";
+import { AddonsGlyphsCommand } from "@/discord/commands/addons/subcommands/glyphs.ts";
+import {AddonDiscussionCommand} from "@/discord/commands/addons/subcommands/discussion.ts";
 
 export class AddonsCommand extends CommandWithSubcommandGroups {
   name = "addons";

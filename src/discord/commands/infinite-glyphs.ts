@@ -1,4 +1,4 @@
-import { BaseEmbedCommand } from "../abstracts/embed-command.ts";
+import { BaseEmbedCommand } from "@/discord/abstracts/embed-command.ts";
 
 export class InfiniteGlyphsCommand extends BaseEmbedCommand {
   name = "infinite-glyphs";

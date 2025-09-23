@@ -6,21 +6,21 @@ import {
   CommandOptions,
   Embed,
 } from "npm:@buape/carbon";
-import { userTargetOption } from "../../../../helpers/user-target.ts";
-import { getMention, isEphemeral } from "../../../../helpers/ephemeral.ts";
-import { cache as addonCache } from "../../addon-cache.ts";
-import { logger } from "../../../../logger.ts";
-import { CONFIG } from "../../../../config.ts";
-import { fetchGlyphCache } from "../../shared/glyph-utils.ts";
+import { userTargetOption } from "@/discord/helpers/user-target.ts";
+import { getMention, isEphemeral } from "@/discord/helpers/ephemeral.ts";
+import { cache as addonCache } from "@/discord/commands/addons/addon-cache.ts";
+import { logger } from "@/logger.ts";
+import { CONFIG } from "@/config.ts";
+import { fetchGlyphCache } from "@/discord/commands/addons/shared/glyph-utils.ts";
 import {
   getAttachment,
   getImage,
   getMod,
   getTranslation,
 } from "../../../../http/github-cdn/glyphs/helpers.ts";
-import { addons } from "../../addons.ts";
+import { addons } from "@/discord/commands/addons/addons.ts";
 import Fuse from "npm:fuse.js";
-import { capitalize } from "../../../../helpers/capitalize.ts";
+import { capitalize } from "@/discord/helpers/capitalize.ts";
 
 export class AddonGlyphsSearchCommand extends Command {
   name = "search";
@@ -122,7 +122,7 @@ export class AddonGlyphsSearchCommand extends Command {
     if (data.spellSchools.length > 0) {
       fields.push({
         name: "Schools",
-        value: data.spellSchools.map((school) => capitalize(school.id)).join(
+        value: data.spellSchools.map((school: any) => capitalize(school.id)).join(
           ", ",
         ),
       });
@@ -132,7 +132,7 @@ export class AddonGlyphsSearchCommand extends Command {
     if (augments.length > 0) {
       description += "\n";
     }
-    for (const [glyph, { translate }] of augments) {
+    for (const [glyph, { translate }] of augments as [string, { translate: string }][]) {
       const exported = glyphCache.data[glyph];
       if (!exported) {
         logger.warn({ glyph }, "Referenced glyph not found in cache");
