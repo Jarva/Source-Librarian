@@ -1,4 +1,4 @@
-import { APIEmbedField } from "@buape/carbon";
+import { APIEmbedField } from "npm:@buape/carbon";
 import { BaseEmbedCommand } from "../abstracts/embed-command.ts";
 
 const lines = [

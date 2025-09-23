@@ -8,6 +8,7 @@ import {
 } from "npm:@buape/carbon";
 import { userTargetOption } from "../helpers/user-target.ts";
 import { getEphemeral, getMention } from "../helpers/ephemeral.ts";
+import { CONFIG } from "../../config.ts";
 
 export abstract class BaseEmbedCommand extends Command {
   abstract name: string;
@@ -27,7 +28,7 @@ export abstract class BaseEmbedCommand extends Command {
   async run(interaction: CommandInteraction) {
     const embed = new Embed({
       title: this.title ?? this.description,
-      color: 0x231631,
+      color: CONFIG.THEME.EMBED_COLOR,
       description: this.lines.join("\n"),
       image: this.image
         ? {

@@ -3,11 +3,12 @@ import {
   Command,
   CommandInteraction,
   CommandOptions,
-} from "@buape/carbon";
+} from "npm:@buape/carbon";
 import { userTargetOption } from "../../../helpers/user-target.ts";
 import {addonAutocomplete, addonOption, addons} from "../addons.ts";
 import { getMention, isEphemeral } from "../../../helpers/ephemeral.ts";
 import { channelMention } from "../../../helpers/mention.ts";
+import { logger } from "../../../logger.ts";
 
 export class AddonDiscussionCommand extends Command {
   name = "discussion";
@@ -29,6 +30,7 @@ export class AddonDiscussionCommand extends Command {
 
     const id = interaction.options.getString("addon");
     if (id === undefined) {
+      logger.warn("No addon ID provided in discussion command");
       return interaction.reply({
         content: "No Addon provided",
       });
@@ -37,9 +39,10 @@ export class AddonDiscussionCommand extends Command {
     const addon = addons[id];
 
     if (!addon.channel) {
+      logger.warn({ addonId: id }, "No discussion channel found for addon");
       return interaction.reply({
         content: "No discussion channel found."
-      })
+      });
     }
 
     await interaction.reply({

@@ -1,5 +1,6 @@
 import { cache } from "../cache.ts";
-import { type MessagePayloadFile } from "@buape/carbon";
+import { type MessagePayloadFile } from "npm:@buape/carbon";
+import { PATHS } from "../paths.ts";
 
 export const getMod = (namespace: string) => {
   switch (namespace) {
@@ -13,13 +14,13 @@ export const getMod = (namespace: string) => {
 };
 
 export const getTranslation = async (key: string) => {
-  const lang = await cache.fetch("Jarva/ArsAddonBuilder/output/lang/en_us.json");
+  const lang = await cache.fetch(PATHS.langEnUS);
 
   if (lang === undefined || lang.type !== "LangCache") {
     return null;
   }
 
-  return lang.entries[key] ?? key;
+  return lang.data[key] ?? key;
 };
 
 export const getImage = async (
@@ -30,7 +31,7 @@ export const getImage = async (
   const [textureNS, texturePath] = texture.split(":");
 
   const parts = [
-    "Jarva/ArsAddonBuilder/output/resources/",
+    `${PATHS.resourcesPrefix}/`,
     mod,
     "/assets/",
     textureNS,
@@ -48,7 +49,7 @@ export const getImage = async (
     return null;
   }
 
-  return data.entries;
+  return data.data;
 };
 
 export const getAttachment = (

@@ -3,7 +3,7 @@ import {
   CommandWithSubcommandGroups,
   CommandWithSubcommands,
   InteractionContextType,
-} from "@buape/carbon";
+} from "npm:@buape/carbon";
 import { AddonInfoCommand } from "./subcommands/info.ts";
 import { AddonsGlyphsCommand } from "./subcommands/glyphs.ts";
 import {AddonDiscussionCommand} from "./subcommands/discussion.ts";

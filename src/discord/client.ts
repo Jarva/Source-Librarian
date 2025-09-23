@@ -1,10 +1,17 @@
-import { Client } from "@buape/carbon";
-import { createHandler } from "@buape/carbon/adapters/fetch";
-import { ShardingPlugin } from "@buape/carbon/sharding";
+import "npm:dotenv/config";
+import { Client } from "npm:@buape/carbon";
+import { createHandler } from "npm:@buape/carbon/adapters/fetch";
+import { ShardingPlugin } from "npm:@buape/carbon/sharding";
 import { Ready } from "./listeners/ready.ts";
 import commands from "./commands.ts";
+import { requireEnv } from "../helpers/env.ts";
 
-const env = Deno.env.toObject();
+const env = requireEnv([
+  "BASE_URL",
+  "DISCORD_CLIENT_ID",
+  "DISCORD_PUBLIC_KEY",
+  "DISCORD_TOKEN",
+] as const);
 
 export const client = new Client({
   baseUrl: env.BASE_URL,

@@ -2,7 +2,8 @@ import { LRUCache } from "npm:lru-cache";
 import { addons } from "./addons.ts";
 import { Root } from "../../http/curseforge/types.ts";
 import { client } from "../../http/curseforge/client.ts";
-import { Result } from "npm:typescript-result";
+import { logger } from "../../../logger.ts";
+import { CONFIG } from "../../../config.ts";
 
 interface Version {
   name: string;
@@ -22,11 +23,10 @@ interface Mod {
   source: string | null;
 }
 
-const SUPPORTED_VERSIONS = ["1.16.5", "1.18.2", "1.19.2", "1.20.1", "1.21.1"];
 
 export const cache = new LRUCache<string, Mod>({
   max: Object.keys(addons).length,
-  ttl: 1000 * 60 * 60,
+  ttl: CONFIG.CACHE.TTL,
   allowStaleOnFetchRejection: true,
   allowStaleOnFetchAbort: true,
   fetchMethod: async (key) => {
@@ -37,15 +37,15 @@ export const cache = new LRUCache<string, Mod>({
         throw new Error("Unable to retrieve mod");
       }
 
-      const {data: mod} = root;
+      const { data: mod } = root;
 
       const supported = mod.latestFilesIndexes.filter((version) =>
-          SUPPORTED_VERSIONS.includes(version.gameVersion)
+        CONFIG.SUPPORTED_VERSIONS.includes(version.gameVersion)
       );
       const released = supported.filter((version) => version.releaseType === 1);
       const deduped = released.filter((version, index, self) =>
-          self.findIndex((other) => other.gameVersion === version.gameVersion) ===
-          index
+        self.findIndex((other) => other.gameVersion === version.gameVersion) ===
+        index
       );
 
       const versions = deduped.map((file) => ({
@@ -65,8 +65,9 @@ export const cache = new LRUCache<string, Mod>({
         issues: mod.links.issuesUrl,
         source: mod.links.sourceUrl,
       };
-    } catch (error) {
-      console.log(error);
+    } catch (err) {
+      logger.error({ err, key }, "Failed to fetch addon mod data");
+      throw err;
     }
   },
 });

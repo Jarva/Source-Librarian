@@ -1,18 +1,19 @@
-import { Command, CommandOptions, AutocompleteInteraction, CommandInteraction, APIEmbedField, Embed, MessagePayloadObject } from "@buape/carbon";
+import { Command, CommandOptions, AutocompleteInteraction, CommandInteraction, APIEmbedField, Embed, MessagePayloadObject } from "npm:@buape/carbon";
 import {addonAutocomplete, addonOption, addons} from "../../addons.ts";
 import {userTargetOption} from "../../../../helpers/user-target.ts";
 import {isEphemeral} from "../../../../helpers/ephemeral.ts";
-import {cache} from "../../../../http/github-cdn/cache.ts";
 import {getMod, getTranslation} from "../../../../http/github-cdn/glyphs/helpers.ts";
 import {ExportedGlyph} from "../../../../http/github-cdn/glyphs/types.ts";
 import {capitalize} from "../../../../helpers/capitalize.ts";
-import { cache as addonCache } from "../../addon-cache.ts";
-import { Paginator } from "@buape/carbon/paginator"
+import { Paginator } from "npm:@buape/carbon/paginator";
+import { logger } from "../../../../logger.ts";
+import { CONFIG } from "../../../../config.ts";
+import { fetchGlyphCache, fetchAddonMod } from "../../shared/glyph-utils.ts";
 
 export class AddonGlyphsListCommand extends Command {
     name = "list";
     description = "List Glyphs from an Addon";
-    pageSize = 5;
+    pageSize = CONFIG.PAGE_SIZE;
 
     options: CommandOptions = [
         addonOption,
@@ -35,30 +36,31 @@ export class AddonGlyphsListCommand extends Command {
             });
         }
 
-        const addon = addons[id];
-
-        const mod = await addonCache.fetch(addon.id, { signal: AbortSignal.timeout(5000) });
-        if (mod === undefined) {
+        const mod = await fetchAddonMod(id);
+        if (!mod) {
             return await interaction.reply({
                 content: "Unable to retrieve addon data",
             });
         }
 
-        const glyphCache = await cache.fetch("Jarva/ArsAddonBuilder/output/glyphs.json", {
-            signal: AbortSignal.timeout(5000),
-        });
-
-        if (glyphCache === undefined || glyphCache.type !== "GlyphCache") {
+        const glyphResult = await fetchGlyphCache();
+        if (!glyphResult.success) {
             return await interaction.reply({
-                content: "Unable to retrieve glyph data",
+                content: glyphResult.error,
             });
         }
+        const { glyphCache } = glyphResult;
 
-        const addonGlyphs = Object.values(glyphCache.entries).toSorted((a, b) => a.typeIndex - b.typeIndex).reduce<ExportedGlyph[]>((acc, curr) => {
-            const [ns] = curr.registryName.split(":")
+        const addonGlyphs = Object.values(glyphCache.data).toSorted((a, b) => a.typeIndex - b.typeIndex).reduce<ExportedGlyph[]>((acc, curr) => {
+            const registryParts = curr.registryName.split(":");
+            if (registryParts.length < 2) {
+                logger.warn({ registryName: curr.registryName }, "Invalid registry name format");
+                return acc;
+            }
+            const [ns] = registryParts;
             const modId = getMod(ns);
 
-            if (modId == id) {
+            if (modId === id) {
                 acc.push(curr);
             }
 
@@ -83,7 +85,12 @@ export class AddonGlyphsListCommand extends Command {
             const fields: APIEmbedField[] = [];
 
             for (const glyph of chunk) {
-                const [namespace, path] = glyph.registryName.split(":");
+                const registryParts = glyph.registryName.split(":");
+                if (registryParts.length < 2) {
+                    logger.warn({ registryName: glyph.registryName }, "Invalid registry name format in glyph processing");
+                    continue;
+                }
+                const [namespace, path] = registryParts;
                 const type = await getTranslation(glyph.typeName.translate) ??
                     "Unknown Type";
                 const description = await getTranslation(`${namespace}.glyph_desc.${path}`) ??
@@ -98,7 +105,8 @@ export class AddonGlyphsListCommand extends Command {
             pages.push({
                 embeds: [
                     new Embed({
-                        title: `${mod.name ?? capitalize(mod.name)} Glyphs`,
+                        title: `${mod.name ?? capitalize(id)} Glyphs`,
+                        color: CONFIG.THEME.EMBED_COLOR,
                         fields,
                         url: mod.link
                     })

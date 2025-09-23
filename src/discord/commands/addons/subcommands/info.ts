@@ -5,13 +5,15 @@ import {
   CommandInteraction,
   CommandOptions,
   Embed,
-} from "@buape/carbon";
+} from "npm:@buape/carbon";
 import { userTargetOption } from "../../../helpers/user-target.ts";
 import {addonAutocomplete, addons, getAddonOption} from "../addons.ts";
 import { getMention, isEphemeral } from "../../../helpers/ephemeral.ts";
 import { cache } from "../addon-cache.ts";
-import { time, TimestampStyles } from "@discordjs/formatters";
+import { time, TimestampStyles } from "npm:@discordjs/formatters";
 import { channelMention } from "../../../helpers/mention.ts";
+import { logger } from "../../../logger.ts";
+import { CONFIG } from "../../../config.ts";
 
 export class AddonInfoCommand extends Command {
   name = "info";
@@ -40,8 +42,9 @@ export class AddonInfoCommand extends Command {
 
     const addon = addons[id];
 
-    const mod = await cache.fetch(addon.id, { signal: AbortSignal.timeout(5000) });
+    const mod = await cache.fetch(addon.id, { signal: AbortSignal.timeout(CONFIG.TIMEOUTS.CURSEFORGE_API) });
     if (mod === undefined) {
+      logger.error({ addonId: addon.id }, "Unable to retrieve addon data");
       return await interaction.reply({
         content: "Unable to retrieve addon data",
       });
@@ -82,7 +85,7 @@ export class AddonInfoCommand extends Command {
 
     const embed = new Embed({
       title: `${mod.name} by ${mod.author}`,
-      color: 0x231631,
+      color: CONFIG.THEME.EMBED_COLOR,
       description: `${mod.summary}`,
       url: `${mod.link}`,
       thumbnail: {

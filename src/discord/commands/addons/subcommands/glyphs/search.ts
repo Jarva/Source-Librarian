@@ -5,11 +5,13 @@ import {
   CommandInteraction,
   CommandOptions,
   Embed,
-} from "@buape/carbon";
+} from "npm:@buape/carbon";
 import { userTargetOption } from "../../../../helpers/user-target.ts";
 import { getMention, isEphemeral } from "../../../../helpers/ephemeral.ts";
-import { cache } from "../../../../http/github-cdn/cache.ts";
 import { cache as addonCache } from "../../addon-cache.ts";
+import { logger } from "../../../../logger.ts";
+import { CONFIG } from "../../../../config.ts";
+import { fetchGlyphCache } from "../../shared/glyph-utils.ts";
 import {
   getAttachment,
   getImage,
@@ -46,17 +48,15 @@ export class AddonGlyphsSearchCommand extends Command {
       });
     }
 
-    const glyphCache = await cache.fetch("Jarva/ArsAddonBuilder/output/glyphs.json", {
-      signal: AbortSignal.timeout(5000),
-    });
-
-    if (glyphCache === undefined || glyphCache.type !== "GlyphCache") {
+    const glyphResult = await fetchGlyphCache();
+    if (!glyphResult.success) {
       return await interaction.reply({
-        content: "Unable to retrieve glyph data",
+        content: glyphResult.error,
       });
     }
+    const { glyphCache } = glyphResult;
 
-    const entries = Object.values(glyphCache.entries);
+    const entries = Object.values(glyphCache.data);
 
     const fuse = new Fuse(entries, { keys: [{ name: "name", weight: 10 }, "description"] });
     const matches = fuse.search(query, { limit: 1 });
@@ -66,16 +66,30 @@ export class AddonGlyphsSearchCommand extends Command {
       });
     }
 
-    const [{ item: data }] = matches;
+    const firstMatch = matches[0];
+    if (!firstMatch) {
+      logger.error({ query }, "No glyph search results found");
+      return await interaction.reply({
+        content: "Unable to find that glyph",
+      });
+    }
+    const { item: data } = firstMatch;
 
-    const [namespace, path] = data.registryName.split(":");
+    const registryParts = data.registryName.split(":");
+    if (registryParts.length < 2) {
+      logger.error({ registryName: data.registryName }, "Invalid registry name format in search result");
+      return await interaction.reply({
+        content: "Invalid glyph data format",
+      });
+    }
+    const [namespace, path] = registryParts;
     const mod = getMod(namespace);
 
     const addonEntry = addons[mod];
     let addon;
     if (addonEntry) {
       addon = await addonCache.fetch(addonEntry.id, {
-        signal: AbortSignal.timeout(5000),
+        signal: AbortSignal.timeout(CONFIG.TIMEOUTS.CURSEFORGE_API),
       });
     }
 
@@ -98,7 +112,7 @@ export class AddonGlyphsSearchCommand extends Command {
       });
     }
 
-    if (data.defaults.perSpellLimit !== 2147483647) {
+    if (data.defaults.perSpellLimit !== CONFIG.GLYPH.UNLIMITED_SPELL_LIMIT) {
       fields.push({
         name: "Per Spell Limit",
         value: `${data.defaults.perSpellLimit}`,
@@ -119,7 +133,11 @@ export class AddonGlyphsSearchCommand extends Command {
       description += "\n";
     }
     for (const [glyph, { translate }] of augments) {
-      const exported = glyphCache.entries[glyph];
+      const exported = glyphCache.data[glyph];
+      if (!exported) {
+        logger.warn({ glyph }, "Referenced glyph not found in cache");
+        continue;
+      }
       description += `\n**${exported.name}:** ${await getTranslation(
         translate,
       )}`;
@@ -127,6 +145,7 @@ export class AddonGlyphsSearchCommand extends Command {
 
     const embed = new Embed({
       title: `**${type}:** ${data.name} from ${addon?.name ?? capitalize(mod)}`,
+      color: CONFIG.THEME.EMBED_COLOR,
       description: `${description}`,
       fields,
       thumbnail: attachment

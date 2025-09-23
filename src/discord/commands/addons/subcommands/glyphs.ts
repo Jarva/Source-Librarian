@@ -2,7 +2,7 @@ import {
   Command,
   CommandWithSubcommands,
   InteractionContextType,
-} from "@buape/carbon";
+} from "npm:@buape/carbon";
 import { AddonGlyphsSearchCommand } from "./glyphs/search.ts";
 import {AddonGlyphsListCommand} from "./glyphs/list.ts";
 

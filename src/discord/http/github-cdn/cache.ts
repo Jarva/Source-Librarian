@@ -2,57 +2,66 @@ import { LRUCache } from "npm:lru-cache";
 import { client } from "./client.ts";
 import { ExportedGlyph } from "./glyphs/types.ts";
 import sharp from "npm:sharp";
+import { PATHS } from "./paths.ts";
+import { logger } from "../../../logger.ts";
+import { CONFIG } from "../../../config.ts";
 
 interface GlyphCache {
   type: "GlyphCache";
-  entries: Record<string, ExportedGlyph>;
+  data: Record<string, ExportedGlyph>;
 }
 
 interface LangCache {
   type: "LangCache";
-  entries: Record<string, string>;
+  data: Record<string, string>;
 }
 
 interface TextureCache {
   type: "TextureCache";
-  entries: Blob;
+  data: Blob;
 }
 
 type CacheEntry = GlyphCache | LangCache | TextureCache;
 
 export const cache = new LRUCache<string, CacheEntry>({
-  max: 100,
-  ttl: 1000 * 60 * 60,
+  max: CONFIG.CACHE.MAX_SIZE,
+  ttl: CONFIG.CACHE.TTL,
   allowStaleOnFetchRejection: true,
   allowStaleOnFetchAbort: true,
   fetchMethod: async (key) => {
-    try {
-      const res = await client.get(key);
-      if (key === "Jarva/ArsAddonBuilder/output/glyphs.json") {
-        return {
-          type: "GlyphCache",
-          entries: await res.json(),
-        };
-      }
-      if (key === "Jarva/ArsAddonBuilder/output/lang/en_us.json") {
-        return {
-          type: "LangCache",
-          entries: await res.json(),
-        };
-      }
-      if (key.startsWith("Jarva/ArsAddonBuilder/output/resources")) {
-        const image = await res.blob();
-        const buffer = await image.arrayBuffer();
-        const resized = await sharp(buffer)
-            .resize(128, null, {kernel: "nearest"})
-            .toBuffer();
-        return {
-          type: "TextureCache",
-          entries: new Blob([resized], {type: image.type}),
-        };
-      }
-    } catch (error) {
-      console.log(error);
+    const res = await client.get(key);
+    if (!res.ok) {
+      const text = await res.text().catch(() => "<no body>");
+      const error = new Error(`GitHub CDN fetch failed for ${key}: ${res.status} ${res.statusText} - ${text}`);
+      logger.error({ key, status: res.status, statusText: res.statusText, responseText: text }, "GitHub CDN fetch failed");
+      throw error;
     }
+
+    if (key === PATHS.glyphs) {
+      return {
+        type: "GlyphCache",
+        data: await res.json(),
+      };
+    }
+    if (key === PATHS.langEnUS) {
+      return {
+        type: "LangCache",
+        data: await res.json(),
+      };
+    }
+    if (key.startsWith(PATHS.resourcesPrefix)) {
+      const image = await res.blob();
+      const buffer = await image.arrayBuffer();
+      const resized = await sharp(buffer)
+        .resize(128, null, { kernel: sharp.kernel.nearest })
+        .toBuffer();
+      return {
+        type: "TextureCache",
+        data: new Blob([new Uint8Array(resized)], { type: image.type }),
+      };
+    }
+
+    logger.error({ key }, "Unhandled cache key");
+    throw new Error(`Unhandled cache key: ${key}`);
   },
 });
