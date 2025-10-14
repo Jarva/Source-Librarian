@@ -30,6 +30,14 @@ export const getImage = async (
 ) => {
   const [textureNS, texturePath] = texture.split(":");
 
+  const animatedParts = [
+    `${PATHS.animatedResourcesPrefix}/`,
+      mod,
+      texturePath,
+      ".gif",
+      "?raw=true",
+  ]
+
   const parts = [
     `${PATHS.resourcesPrefix}/`,
     mod,
@@ -37,11 +45,11 @@ export const getImage = async (
     textureNS,
     "/textures/",
     texturePath,
-    `${isAnimated ? ".gif" : ".png"}`,
+    ".png",
     "?raw=true",
   ];
 
-  const url = parts.join("");
+  const url = (isAnimated ? animatedParts : parts).join("");
 
   const data = await cache.fetch(url);
 
