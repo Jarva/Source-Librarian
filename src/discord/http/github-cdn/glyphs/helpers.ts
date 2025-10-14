@@ -34,7 +34,7 @@ export const getImage = async (
 
   const animatedParts = [
     `${PATHS.animatedResourcesPrefix}/`,
-      mod,
+      textureNS,
       "/",
       resource,
       ".gif",
