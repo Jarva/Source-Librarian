@@ -30,11 +30,12 @@ export const getImage = async (
   isAnimated: boolean = false,
 ) => {
   const [textureNS, texturePath] = texture.split(":");
+  const [folder, resource] = texturePath.split("/");
 
   const animatedParts = [
     `${PATHS.animatedResourcesPrefix}/`,
       mod,
-      texturePath,
+      resource,
       ".gif",
       "?raw=true",
   ]
