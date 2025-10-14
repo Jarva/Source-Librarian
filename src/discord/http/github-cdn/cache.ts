@@ -49,6 +49,13 @@ export const cache = new LRUCache<string, CacheEntry>({
         data: await res.json(),
       };
     }
+    if (key.startsWith(PATHS.animatedResourcesPrefix)) {
+        const image = await res.blob();
+        return {
+            type: "TextureCache",
+            data: image,
+        };
+    }
     if (key.startsWith(PATHS.resourcesPrefix)) {
       const image = await res.blob();
       const buffer = await image.arrayBuffer();
