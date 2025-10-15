@@ -8,7 +8,7 @@ export class PinInThreadCommand extends Command {
     type = ApplicationCommandType.Message;
 
     async run(interaction: CommandInteraction) {
-        console.log(stringify(interaction, null, 2));
+        console.log(stringify(interaction.options, null, 2));
         if (interaction.message == null) {
             return await interaction.reply({ content: "Unable to find message" });
         }
