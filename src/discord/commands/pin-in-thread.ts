@@ -3,7 +3,6 @@ import { ApplicationCommandType, Command, CommandInteraction, GuildThreadChannel
 export class PinInThreadCommand extends Command {
     name = "Pin In Thread";
     description = "Pins a message inside a thread";
-    defer = true;
     ephemeral = true;
     type = ApplicationCommandType.Message;
 
