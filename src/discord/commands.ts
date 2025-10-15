@@ -8,6 +8,7 @@ import { EnchantingCommand } from "@/discord/commands/enchanting.ts";
 import { AddonsCommand } from "@/discord/commands/addons/command.ts";
 import { LagCommand } from "@/discord/commands/lag.ts";
 import { InfiniteGlyphsCommand } from "@/discord/commands/infinite-glyphs.ts";
+import { PinInThreadCommand } from "@/discord/commands/pin-in-thread.ts";
 
 export default [
   new IframesCommand(),
@@ -19,4 +20,5 @@ export default [
   new AddonsCommand(),
   new LagCommand(),
   new InfiniteGlyphsCommand(),
+  new PinInThreadCommand(),
 ] as Command[];
