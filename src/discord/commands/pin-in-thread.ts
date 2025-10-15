@@ -13,6 +13,10 @@ export class PinInThreadCommand extends Command {
         }
         if (interaction.channel instanceof GuildThreadChannel) {
             if (interaction.channel.ownerId == interaction.user.id) {
+                if (interaction.message.pinned) {
+                    await interaction.message.unpin();
+                    return await interaction.reply({ content: "Message Unpinned" });
+                }
                 await interaction.message.pin();
                 return await interaction.reply({ content: "Message Pinned" });
             }
