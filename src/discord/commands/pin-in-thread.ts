@@ -1,4 +1,5 @@
 import { ApplicationCommandType, Command, CommandInteraction, GuildThreadChannel } from "npm:@buape/carbon"
+import stringify from "npm:safe-stable-stringify@2.5.0";
 
 export class PinInThreadCommand extends Command {
     name = "Pin In Thread";
@@ -7,7 +8,7 @@ export class PinInThreadCommand extends Command {
     type = ApplicationCommandType.Message;
 
     async run(interaction: CommandInteraction) {
-        console.log(JSON.stringify(interaction, null, 2));
+        console.log(stringify(interaction, null, 2));
         if (interaction.message == null) {
             return await interaction.reply({ content: "Unable to find message" });
         }
