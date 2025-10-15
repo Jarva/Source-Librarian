@@ -1,4 +1,4 @@
-import { ApplicationCommandType, Command, CommandInteraction, GuildThreadChannel } from "npm:@buape/carbon"
+import { ApplicationCommandType, Command, CommandInteraction, GuildThreadChannel, Message } from "npm:@buape/carbon"
 import stringify from "npm:safe-stable-stringify@2.5.0";
 
 export class PinInThreadCommand extends Command {
@@ -8,17 +8,20 @@ export class PinInThreadCommand extends Command {
     type = ApplicationCommandType.Message;
 
     async run(interaction: CommandInteraction) {
-        console.log(stringify(interaction.rawData, null, 2));
-        if (interaction.message == null) {
+        const [message] = Object.values(interaction.rawData.data.resolved.messages)
+            .map(message => new Message(interaction.client, message));
+
+        console.log(stringify(message, null, 2));
+        if (message == null) {
             return await interaction.reply({ content: "Unable to find message" });
         }
         if (interaction.channel instanceof GuildThreadChannel) {
             if (interaction.channel.ownerId == interaction.user.id) {
-                if (interaction.message.pinned) {
-                    await interaction.message.unpin();
+                if (message.pinned) {
+                    await message.unpin();
                     return await interaction.reply({ content: "Message Unpinned" });
                 }
-                await interaction.message.pin();
+                await message.pin();
                 return await interaction.reply({ content: "Message Pinned" });
             }
             return await interaction.reply({ content: "This command is only for thread-owners" });
