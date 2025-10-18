@@ -53,6 +53,8 @@ export const getImage = async (
 
   const url = (isAnimated ? animatedParts : parts).join("");
 
+  logger.info("Fetching image from url: ", url);
+
   const data = await cache.fetch(url);
 
   if (data === undefined || data.type !== "TextureCache") {
