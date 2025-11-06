@@ -11,6 +11,7 @@ import { InfiniteGlyphsCommand } from "@/discord/commands/infinite-glyphs.ts";
 import { PinInThreadCommand } from "@/discord/commands/pin-in-thread.ts";
 import { LmgtfyCommand } from "@/discord/commands/lmgtfy.ts";
 import { BinarySearchCommand } from "@/discord/commands/binary-search.ts";
+import { AncientCommand } from "@/discord/commands/ancient.ts";
 
 export default [
   new IframesCommand(),
@@ -25,4 +26,5 @@ export default [
   new PinInThreadCommand(),
   new LmgtfyCommand(),
   new BinarySearchCommand(),
+  new AncientCommand(),
 ] as Command[];
