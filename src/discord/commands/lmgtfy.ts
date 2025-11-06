@@ -36,7 +36,7 @@ export class LmgtfyCommand extends Command {
 
     const mention = getMention(interaction);
     const url = `https://letmegooglethat.com/?q=${encodeURIComponent(query)}`;
-    const content = `${mention ? `${mention}\n` : ""}[${query}](${url})`;
+    const content = `${mention ? `${mention}\n` : ""}[${query}](<${url}>)`;
 
     await interaction.reply({
       content,
