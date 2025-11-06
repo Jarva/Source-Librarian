@@ -27,7 +27,7 @@ const filterLogAttachments = (
 ): APIAttachment[] => {
   console.log("Received Attachments", JSON.stringify(attachments));
   return attachments
-    .filter(attachment => (attachment.content_type ?? "") == "text/plain")
+    .filter(attachment => (attachment.content_type ?? "").includes("text/plain"))
     .filter(attachment => attachment.size <= MAX_ATTACHMENT_SIZE);
 };
 
