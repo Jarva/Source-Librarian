@@ -1,7 +1,7 @@
 import {
   APIApplicationCommandBasicOption,
   ApplicationCommandOptionType,
-} from "npm:@buape/carbon";
+} from "@buape/carbon";
 
 export const userTargetOption: APIApplicationCommandBasicOption = {
   name: "user",

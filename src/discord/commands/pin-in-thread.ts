@@ -1,5 +1,10 @@
-import { ApplicationCommandType, Command, CommandInteraction, GuildThreadChannel, Message } from "npm:@buape/carbon"
-import stringify from "npm:safe-stable-stringify@2.5.0";
+import { APIMessage, ApplicationCommandType, Command, CommandInteraction, GuildThreadChannel, Message } from "@buape/carbon"
+
+type ExtendWithResolved<T> = T & {
+    resolved: {
+        messages: APIMessage[]
+    }
+}
 
 export class PinInThreadCommand extends Command {
     name = "Pin In Thread";
@@ -8,15 +13,16 @@ export class PinInThreadCommand extends Command {
     type = ApplicationCommandType.Message;
 
     async run(interaction: CommandInteraction) {
-        const [message] = Object.values(interaction.rawData.data.resolved.messages)
+        const data = interaction.rawData.data;
+        const resolved = (data as ExtendWithResolved<typeof data>).resolved;
+        const [message] = Object.values(resolved.messages)
             .map(message => new Message(interaction.client, message));
 
-        console.log(stringify(message, null, 2));
         if (message == null) {
             return await interaction.reply({ content: "Unable to find message" });
         }
         if (interaction.channel instanceof GuildThreadChannel) {
-            if (interaction.channel.ownerId == interaction.user.id) {
+            if (interaction.channel.ownerId == interaction.user?.id) {
                 if (message.pinned) {
                     await message.unpin();
                     return await interaction.reply({ content: "Message Unpinned" });

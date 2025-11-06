@@ -1,4 +1,4 @@
-import { LRUCache } from "npm:lru-cache";
+import { LRUCache } from "lru-cache";
 import { addons } from "@/discord/commands/addons/addons.ts";
 import { Root } from "@/discord/http/curseforge/types.ts";
 import { client } from "@/discord/http/curseforge/client.ts";

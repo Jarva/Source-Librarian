@@ -5,7 +5,7 @@ import {
   CommandInteraction,
   CommandOptions,
   Embed,
-} from "npm:@buape/carbon";
+} from "@buape/carbon";
 import { userTargetOption } from "@/discord/helpers/user-target.ts";
 import { getMention, isEphemeral } from "@/discord/helpers/ephemeral.ts";
 import { cache as addonCache } from "@/discord/commands/addons/addon-cache.ts";
@@ -19,7 +19,7 @@ import {
   getTranslation,
 } from "../../../../http/github-cdn/glyphs/helpers.ts";
 import { addons } from "@/discord/commands/addons/addons.ts";
-import Fuse from "npm:fuse.js";
+import Fuse from "fuse.js";
 import { capitalize } from "@/discord/helpers/capitalize.ts";
 
 export class AddonGlyphsSearchCommand extends Command {

@@ -1,4 +1,4 @@
-import { User } from "npm:@buape/carbon";
+import { User } from "@buape/carbon";
 
 export const mention = (user: User<true> | User<false>) => `<@${user.id}>`;
 

@@ -1,11 +1,11 @@
-import { Command, CommandOptions, AutocompleteInteraction, CommandInteraction, APIEmbedField, Embed, MessagePayloadObject } from "npm:@buape/carbon";
+import { Command, CommandOptions, AutocompleteInteraction, CommandInteraction, APIEmbedField, Embed, MessagePayloadObject } from "@buape/carbon";
 import {addonAutocomplete, addonOption, addons} from "@/discord/commands/addons/addons.ts";
 import {userTargetOption} from "@/discord/helpers/user-target.ts";
 import {isEphemeral} from "@/discord/helpers/ephemeral.ts";
 import {getMod, getTranslation} from "@/discord/http/github-cdn/glyphs/helpers.ts";
 import {ExportedGlyph} from "@/discord/http/github-cdn/glyphs/types.ts";
 import {capitalize} from "@/discord/helpers/capitalize.ts";
-import { Paginator } from "npm:@buape/carbon/paginator";
+import { Paginator } from "@buape/carbon/paginator";
 import { logger } from "@/logger.ts";
 import { CONFIG } from "@/config.ts";
 import { fetchGlyphCache, fetchAddonMod } from "@/discord/commands/addons/shared/glyph-utils.ts";

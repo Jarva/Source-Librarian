@@ -1,7 +1,7 @@
-import { LRUCache } from "npm:lru-cache";
+import { LRUCache } from "lru-cache";
 import { client } from "@/discord/http/github-cdn/client.ts";
 import { ExportedGlyph } from "@/discord/http/github-cdn/glyphs/types.ts";
-import sharp from "npm:sharp";
+import sharp from "sharp";
 import { PATHS } from "@/discord/http/github-cdn/paths.ts";
 import { logger } from "@/logger.ts";
 import { CONFIG } from "@/config.ts";
@@ -28,7 +28,7 @@ export const cache = new LRUCache<string, CacheEntry>({
   ttl: CONFIG.CACHE.TTL,
   allowStaleOnFetchRejection: true,
   allowStaleOnFetchAbort: true,
-  fetchMethod: async (key) => {
+  fetchMethod: async (key: string) => {
     const res = await client.get(key);
     if (!res.ok) {
       const text = await res.text().catch(() => "<no body>");

@@ -5,7 +5,7 @@ import {
   CommandOptions,
   Embed,
   InteractionContextType,
-} from "npm:@buape/carbon";
+} from "@buape/carbon";
 import { userTargetOption } from "@/discord/helpers/user-target.ts";
 import { getEphemeral, getMention } from "@/discord/helpers/ephemeral.ts";
 import { CONFIG } from "@/config.ts";

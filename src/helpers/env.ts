@@ -1,5 +1,5 @@
 // Helper for validating and retrieving required environment variables
-// Note: Ensure your entrypoint imports "npm:dotenv/config" to load .env before using this helper.
+// Note: Ensure your entrypoint imports "dotenv/config" to load .env before using this helper.
 
 export function requireEnv<K extends string>(keys: readonly K[]): Record<K, string> {
   const env = Deno.env.toObject();

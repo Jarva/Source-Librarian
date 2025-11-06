@@ -2,7 +2,7 @@ import {
   APIApplicationCommandBasicOption,
   ApplicationCommandOptionType,
   AutocompleteInteraction,
-} from "npm:@buape/carbon";
+} from "@buape/carbon";
 import { Categories } from "@/discord/commands/addons/categories.ts";
 
 interface Addon {

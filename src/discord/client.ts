@@ -1,8 +1,9 @@
-import "npm:dotenv/config";
-import { Client } from "npm:@buape/carbon";
-import { createHandler } from "npm:@buape/carbon/adapters/fetch";
-import { ShardingPlugin } from "npm:@buape/carbon/sharding";
+import "dotenv/config";
+import { Client, GatewayIntentBits } from "@buape/carbon";
+import { createHandler } from "@buape/carbon/adapters/fetch";
+import { ShardingPlugin } from "@buape/carbon/sharding";
 import { Ready } from "@/discord/listeners/ready.ts";
+import { LogUpload } from "@/discord/listeners/log-upload.ts";
 import commands from "@/discord/commands.ts";
 import { requireEnv } from "@/helpers/env.ts";
 
@@ -24,10 +25,14 @@ export const client = new Client({
   commands,
   listeners: [
     new Ready(),
+    new LogUpload(),
   ],
 }, [
   new ShardingPlugin({
-    intents: 0,
+    intents:
+      GatewayIntentBits.Guilds |
+      GatewayIntentBits.GuildMessages |
+      GatewayIntentBits.MessageContent,
   }),
 ]);
 

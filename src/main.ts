@@ -1,6 +1,6 @@
-import "npm:dotenv/config";
-import { Hono } from "npm:hono";
-import { logger } from "npm:hono/logger";
+import "dotenv/config";
+import { Hono } from "hono";
+import { logger } from "hono/logger";
 import { handler } from "@/discord/client.ts";
 
 const app = new Hono();

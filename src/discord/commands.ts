@@ -1,5 +1,5 @@
 import { IframesCommand } from "@/discord/commands/iframes.ts";
-import { Command } from "npm:@buape/carbon";
+import { Command } from "@buape/carbon";
 import { ClaimsCommand } from "@/discord/commands/claims.ts";
 import { ImbuementCommand } from "@/discord/commands/imbuement.ts";
 import { ManaCommand } from "@/discord/commands/mana.ts";

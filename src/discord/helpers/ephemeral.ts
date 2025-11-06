@@ -2,7 +2,7 @@ import {
   APIApplicationCommandBasicOption,
   CommandInteraction,
   MessageFlags,
-} from "npm:@buape/carbon";
+} from "@buape/carbon";
 import { userTargetOption } from "@/discord/helpers/user-target.ts";
 import { mention } from "@/discord/helpers/mention.ts";
 

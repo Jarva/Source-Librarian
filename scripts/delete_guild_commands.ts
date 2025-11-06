@@ -1,4 +1,4 @@
-import "npm:dotenv/config";
+import "dotenv/config";
 import { requireEnv } from "../src/helpers/env.ts";
 import { discordPut } from "./helpers/discord.ts";
 import { logger } from "../src/logger.ts";

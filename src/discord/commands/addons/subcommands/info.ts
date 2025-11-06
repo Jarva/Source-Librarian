@@ -5,12 +5,12 @@ import {
   CommandInteraction,
   CommandOptions,
   Embed,
-} from "npm:@buape/carbon";
+} from "@buape/carbon";
 import { userTargetOption } from "@/discord/helpers/user-target.ts";
 import {addonAutocomplete, addons, getAddonOption} from "@/discord/commands/addons/addons.ts";
 import { getMention, isEphemeral } from "@/discord/helpers/ephemeral.ts";
 import { cache } from "@/discord/commands/addons/addon-cache.ts";
-import { time, TimestampStyles } from "npm:@discordjs/formatters";
+import { time, TimestampStyles } from "@discordjs/formatters";
 import { channelMention } from "@/discord/helpers/mention.ts";
 import { logger } from "@/logger.ts";
 import { CONFIG } from "@/config.ts";

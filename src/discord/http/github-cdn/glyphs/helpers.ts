@@ -1,5 +1,5 @@
 import { cache } from "@/discord/http/github-cdn/cache.ts";
-import { type MessagePayloadFile } from "npm:@buape/carbon";
+import { type MessagePayloadFile } from "@buape/carbon";
 import { PATHS } from "@/discord/http/github-cdn/paths.ts";
 import {logger} from "../../../../logger.ts";
 
@@ -53,7 +53,7 @@ export const getImage = async (
 
   const url = (isAnimated ? animatedParts : parts).join("");
 
-  logger.info("Fetching image from url: ", url);
+  logger.info(`Fetching image from url: ${url}`);
 
   const data = await cache.fetch(url);
 
