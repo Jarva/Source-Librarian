@@ -9,6 +9,7 @@ import { AddonsCommand } from "@/discord/commands/addons/command.ts";
 import { LagCommand } from "@/discord/commands/lag.ts";
 import { InfiniteGlyphsCommand } from "@/discord/commands/infinite-glyphs.ts";
 import { PinInThreadCommand } from "@/discord/commands/pin-in-thread.ts";
+import { LmgtfyCommand } from "@/discord/commands/lmgtfy.ts";
 
 export default [
   new IframesCommand(),
@@ -21,4 +22,5 @@ export default [
   new LagCommand(),
   new InfiniteGlyphsCommand(),
   new PinInThreadCommand(),
+  new LmgtfyCommand(),
 ] as Command[];
