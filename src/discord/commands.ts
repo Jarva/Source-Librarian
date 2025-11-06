@@ -10,6 +10,7 @@ import { LagCommand } from "@/discord/commands/lag.ts";
 import { InfiniteGlyphsCommand } from "@/discord/commands/infinite-glyphs.ts";
 import { PinInThreadCommand } from "@/discord/commands/pin-in-thread.ts";
 import { LmgtfyCommand } from "@/discord/commands/lmgtfy.ts";
+import { BinarySearchCommand } from "@/discord/commands/binary-search.ts";
 
 export default [
   new IframesCommand(),
@@ -23,4 +24,5 @@ export default [
   new InfiniteGlyphsCommand(),
   new PinInThreadCommand(),
   new LmgtfyCommand(),
+  new BinarySearchCommand(),
 ] as Command[];
