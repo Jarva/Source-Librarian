@@ -5,7 +5,6 @@ import {
   MessageCreateListener,
   APIAttachment
 } from "@buape/carbon";
-import { logger } from "@/logger.ts";
 
 const MAX_ATTACHMENT_SIZE = 10 * 1024 * 1024; // 10 MiB
 
@@ -80,25 +79,16 @@ export class LogUpload extends MessageCreateListener {
   ) {
     if (!data.guild_id) return;
 
-    const logAttachments = filterLogAttachments(data.message.attachments);
-    if (logAttachments.length === 0) return;
+    const uploads: string[] = [];
+    for (const attachment of filterLogAttachments(data.message.attachments)) {
+      console.log("Found attachment", attachment);
+      const content = await downloadAttachment(attachment);
+      console.log("Got content", content.slice(0, 100))
+      const url = await uploadLog(content);
+      console.log("Got URL", url);
 
-    const uploadPromises = logAttachments.map(async (attachment) => {
-      try {
-        const content = await downloadAttachment(attachment);
-        const url = await uploadLog(content);
-        return url;
-      } catch (error) {
-        logger.warn(
-          { attachment: attachment.url, error },
-          "Failed to process log attachment"
-        );
-        return null;
-      }
-    });
-
-    const uploads = (await Promise.all(uploadPromises))
-      .filter((url): url is string => url !== null);
+      uploads.push(url);
+    }
 
     if (uploads.length === 0) return;
 
