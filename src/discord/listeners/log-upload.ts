@@ -25,7 +25,6 @@ type LogsResponse = LogsSuccess | LogsFailure;
 const filterLogAttachments = (
   attachments: APIAttachment[],
 ): APIAttachment[] => {
-  console.log("Received Attachments", JSON.stringify(attachments));
   return attachments
     .filter(attachment => (attachment.content_type ?? "").includes("text/plain"))
     .filter(attachment => attachment.size <= MAX_ATTACHMENT_SIZE);
@@ -81,11 +80,8 @@ export class LogUpload extends MessageCreateListener {
 
     const uploads: string[] = [];
     for (const attachment of filterLogAttachments(data.message.attachments)) {
-      console.log("Found attachment", attachment);
       const content = await downloadAttachment(attachment);
-      console.log("Got content", content.slice(0, 100))
       const url = await uploadLog(content);
-      console.log("Got URL", url);
 
       uploads.push(url);
     }
