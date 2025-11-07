@@ -80,6 +80,7 @@ export class LogUpload extends MessageCreateListener {
 
     const uploads: string[] = [];
     for (const attachment of filterLogAttachments(data.message.attachments)) {
+      console.log("Found attachment", attachment)
       const content = await downloadAttachment(attachment);
       const url = await uploadLog(content);
 
