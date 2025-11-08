@@ -4,8 +4,7 @@
     "jsr:@std/assert@1": "1.0.12",
     "jsr:@std/dotenv@*": "0.225.3",
     "jsr:@std/internal@^1.0.6": "1.0.6",
-    "npm:@buape/carbon@*": "0.0.0-beta-20250611164744_hono@4.7.10",
-    "npm:@buape/carbon@beta": "0.0.0-beta-20250611164744_hono@4.7.10",
+    "npm:@buape/carbon@0.13.0": "0.13.0_hono@4.7.10",
     "npm:@discordjs/formatters@*": "0.6.0",
     "npm:@discordjs/formatters@0.6.0": "0.6.0",
     "npm:date-fns@^4.1.0": "4.1.0",
@@ -47,11 +46,11 @@
     }
   },
   "npm": {
-    "@buape/carbon@0.0.0-beta-20250611164744_hono@4.7.10": {
-      "integrity": "sha512-4ygTzEE0+F6L4DYp74+Ke+lZ5Vs3BI+mej91eqxoERpNByG1ci6qddRYRG2HZiCTFqV98NWLIxIIUxszqP/hEw==",
+    "@buape/carbon@0.13.0_hono@4.7.10": {
+      "integrity": "sha512-N52sGIJj832IezL+JmekC4gE7cCORj8r8mCJ1vsHOZiyr3O2pvsUA930E1j+rjStkd67TLxURPRMrpyqAFveIg==",
       "dependencies": [
-        "@types/node@22.15.31",
-        "discord-api-types@0.38.5"
+        "@types/node@22.19.0",
+        "discord-api-types@0.38.29"
       ],
       "optionalDependencies": [
         "@cloudflare/workers-types",
@@ -76,8 +75,8 @@
         "tslib"
       ]
     },
-    "@hono/node-server@1.14.1_hono@4.7.10": {
-      "integrity": "sha512-vmbuM+HPinjWzPe7FFPWMMQMsbKE9gDPhaH0FFdqbGpkT5lp++tcWDTxwBl5EgS5y6JVgIaCdjeHRfQ4XRBRjQ==",
+    "@hono/node-server@1.18.2_hono@4.7.10": {
+      "integrity": "sha512-icgNvC0vRYivzyuSSaUv9ttcwtN8fDyd1k3AOIBDJgYd84tXRZSS6na8X54CY/oYoFTNhEmZraW/Rb9XYwX4KA==",
       "dependencies": [
         "hono"
       ]
@@ -260,8 +259,8 @@
     "@pkgjs/parseargs@0.11.0": {
       "integrity": "sha512-+1VkjdD0QBLPodGrJUeqarH8VAIvQODIbwh9XpP5Syisf7YoQgsJKPNFoqqLQlu+VQ/tVSshMR6loPMn8U+dPg=="
     },
-    "@types/bun@1.2.13": {
-      "integrity": "sha512-u6vXep/i9VBxoJl3GjZsl/BFIsvML8DfVDO0RYLEwtSZSp981kEO1V5NwRcO1CPJ7AmvpbnDCiMKo3JvbDEjAg==",
+    "@types/bun@1.2.23": {
+      "integrity": "sha512-le8ueOY5b6VKYf19xT3McVbXqLqmxzPXHsQT/q9JHgikJ2X22wyTW3g3ohz2ZMnp7dod6aduIiq8A14Xyimm0A==",
       "dependencies": [
         "bun-types"
       ]
@@ -282,13 +281,19 @@
     "@types/node@22.15.3": {
       "integrity": "sha512-lX7HFZeHf4QG/J7tBZqrCAXwz9J5RD56Y6MpP0eJkka8p+K0RY/yBTW7CYFJ4VGCclxqOLKmiGP5juQc6MKgcw==",
       "dependencies": [
-        "undici-types"
+        "undici-types@6.21.0"
       ]
     },
-    "@types/node@22.15.31": {
-      "integrity": "sha512-jnVe5ULKl6tijxUhvQeNbQG/84fHfg+yMak02cT8QVhBx/F05rAVxCGBYYTh2EKz22D6JF5ktXuNwdx7b9iEGw==",
+    "@types/node@22.19.0": {
+      "integrity": "sha512-xpr/lmLPQEj+TUnHmR+Ab91/glhJvsqcjB+yY0Ix9GO70H6Lb4FHH5GeqdOE5btAx7eIMwuHkp4H2MSkLcqWbA==",
       "dependencies": [
-        "undici-types"
+        "undici-types@6.21.0"
+      ]
+    },
+    "@types/node@24.2.0": {
+      "integrity": "sha512-3xyG3pMCq3oYCNg7/ZP+E1ooTaGB4cG8JWRsqqOYQdbWNY4zbaV0Ennrd7stjiJEFZCaybcIgpTjJWHRfBSIDw==",
+      "dependencies": [
+        "undici-types@7.10.0"
       ]
     },
     "@types/ramda@0.29.3": {
@@ -297,10 +302,16 @@
         "types-ramda"
       ]
     },
+    "@types/react@19.2.2": {
+      "integrity": "sha512-6mDvHUFSjyT2B2yeNx2nUgMxh9LtOWvkhIU3uePn2I2oyNymUAX1NIsdgviM4CH+JSrp2D2hsMvJOkxY+0wNRA==",
+      "dependencies": [
+        "csstype"
+      ]
+    },
     "@types/ws@8.18.1": {
       "integrity": "sha512-ThVF6DCVhA8kUGy+aazFQ4kXQ7E1Ty7A3ypFOe0IcJV8O/M511G99AW24irKrW56Wt44yG9+ij8FaqoBGkuBXg==",
       "dependencies": [
-        "@types/node@22.15.3"
+        "@types/node@24.2.0"
       ]
     },
     "aggregate-error@3.1.0": {
@@ -337,10 +348,11 @@
         "balanced-match"
       ]
     },
-    "bun-types@1.2.13": {
-      "integrity": "sha512-rRjA1T6n7wto4gxhAO/ErZEtOXyEZEmnIHQfl0Dt1QQSB4QV0iP6BZ9/YB5fZaHFQ2dwHFrmPaRQ9GGMX01k9Q==",
+    "bun-types@1.2.23_@types+react@19.2.2": {
+      "integrity": "sha512-R9f0hKAZXgFU3mlrA0YpE/fiDvwV0FT9rORApt2aQVWSuJDzZOyB5QLc0N/4HF57CS8IXJ6+L5E4W1bW6NS2Aw==",
       "dependencies": [
-        "@types/node@22.15.3"
+        "@types/node@24.2.0",
+        "@types/react"
       ]
     },
     "cacache@18.0.4": {
@@ -383,6 +395,9 @@
         "which"
       ]
     },
+    "csstype@3.1.3": {
+      "integrity": "sha512-M1uQkMl8rQK/szD0LNhtqxIPLpimGm8sOBwU7lLnCpSbTyY3yeU1Vc7l4KT5zT4s/yOxHH5O7tIuuLOCnLADRw=="
+    },
     "data-uri-to-buffer@4.0.1": {
       "integrity": "sha512-0R9ikRb668HB7QDxT1vkpuUBtqc53YyAwMwGeUFKRojY/NWKvdZ+9UYtRfGmhqNbRkTSVpMbmyhXipFFv2cb/A=="
     },
@@ -395,8 +410,8 @@
     "discord-api-types@0.37.120": {
       "integrity": "sha512-7xpNK0EiWjjDFp2nAhHXezE4OUWm7s1zhc/UXXN6hnFFU8dfoPHgV0Hx0RPiCa3ILRpdeh152icc68DGCyXYIw=="
     },
-    "discord-api-types@0.38.5": {
-      "integrity": "sha512-2sRkDRid39myMMeRzVTWLc2PyafSxu6k3LHpkB1Lx6IVzqycRnIhOedCbXg3IYpbJhKvA7ErNAh0DA/nXG/1Uw=="
+    "discord-api-types@0.38.29": {
+      "integrity": "sha512-+5BfrjLJN1hrrcK0MxDQli6NSv5lQH7Y3/qaOfk9+k7itex8RkA/UcevVMMLe8B4IKIawr4ITBTb2fBB2vDORg=="
     },
     "dotenv@17.2.3": {
       "integrity": "sha512-JVUnt+DUIzu87TABbhPmNfVdBDt18BLOWjMUFJMSi/Qqg7NTYtabbvSNJGOJ7afbRuv9D/lngizHtP7QyLQ+9w=="
@@ -818,6 +833,9 @@
     "undici-types@6.21.0": {
       "integrity": "sha512-iwDZqg0QAGrg9Rav5H4n0M64c3mkR59cJ6wQp+7C4nI0gsmExaedaYLNO44eT4AtBBwjbTiGPMlt2Md0T9H9JQ=="
     },
+    "undici-types@7.10.0": {
+      "integrity": "sha512-t5Fy/nfn+14LuOc2KNYg75vZqClpAiqscVvMygNnlsHBFpSXdJaYtXMcdNLpl/Qvc3P2cB3s6lOV51nqsFq4ag=="
+    },
     "unicode-trie@2.0.0": {
       "integrity": "sha512-x7bc76x0bm4prf1VLg79uhAzKw8DVboClSN5VxJuQ+LKDOVEW9CdH+VY7SP+vX7xCYQqzzgQpFqz15zeLvAtZQ==",
       "dependencies": [
@@ -866,8 +884,8 @@
         "strip-ansi@7.1.0"
       ]
     },
-    "ws@8.18.2": {
-      "integrity": "sha512-DMricUmwGZUVr++AEAe2uiVM7UoO9MAVZMDu05UQOaUII0lp+zOzLLU4Xqh/JvTqklB1T4uELaaPBKyjE1r4fQ=="
+    "ws@8.18.3": {
+      "integrity": "sha512-PEIGCY5tSlUt50cqyMXfCzX+oOPqN0vuGqWzbcJ2xvnkzkq46oOpz7dQaTDBdfICb4N14+GARUDw2XV2N4tvzg=="
     },
     "yallist@4.0.0": {
       "integrity": "sha512-3wdGidZyq5PB084XLES5TpOSRA3wjXAlIWMhum2kRcv/41Sn2emQ0dycQW4uZXLejwKvg6EsvbdlVL+FYEct7A=="
@@ -876,7 +894,7 @@
   "workspace": {
     "dependencies": [
       "jsr:@std/assert@1",
-      "npm:@buape/carbon@beta",
+      "npm:@buape/carbon@0.13.0",
       "npm:@discordjs/formatters@0.6.0",
       "npm:date-fns@^4.1.0",
       "npm:dotenv@^17.2.3",

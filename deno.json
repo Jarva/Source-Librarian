@@ -5,7 +5,7 @@
     "scripts:delete-all-commands": "deno run -A scripts/delete_all_application_commands.ts"
   },
   "imports": {
-    "@buape/carbon": "npm:@buape/carbon@beta",
+    "@buape/carbon": "npm:@buape/carbon@0.13.0",
     "@std/assert": "jsr:@std/assert@1",
     "date-fns": "npm:date-fns@^4.1.0",
     "dotenv": "npm:dotenv@^17.2.3",
