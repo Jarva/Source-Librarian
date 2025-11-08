@@ -17,14 +17,8 @@ export class MentionGuard extends MessageCreateListener {
     data: ListenerEventData[typeof ListenerEvent.MessageCreate],
     _client: Client,
   ) {
-    if (!data.guild_id || !data.mention_everyone || !data.member) return;
-
-    const permissions = await data.member.getPermissions();
-    const allowed = permissions.some((permission) =>
-      hasPermission(permission, PermissionFlagsBits.MentionEveryone)
-    );
-
-    if (allowed) return;
+    if (!data.guild_id || !data.member || data.mention_everyone) return;
+    if (!data.message.content.includes("@everyone")) return;
 
     await data.message.forward(ALERT_CHANNEL);
     await data.message.forward(data.author.id);
