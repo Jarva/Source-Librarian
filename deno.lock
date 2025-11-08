@@ -8,6 +8,7 @@
     "npm:@buape/carbon@beta": "0.0.0-beta-20250611164744_hono@4.7.10",
     "npm:@discordjs/formatters@*": "0.6.0",
     "npm:@discordjs/formatters@0.6.0": "0.6.0",
+    "npm:date-fns@^4.1.0": "4.1.0",
     "npm:dotenv@*": "17.2.3",
     "npm:dotenv@^17.2.3": "17.2.3",
     "npm:fast-fuzzy@*": "1.12.0",
@@ -384,6 +385,9 @@
     },
     "data-uri-to-buffer@4.0.1": {
       "integrity": "sha512-0R9ikRb668HB7QDxT1vkpuUBtqc53YyAwMwGeUFKRojY/NWKvdZ+9UYtRfGmhqNbRkTSVpMbmyhXipFFv2cb/A=="
+    },
+    "date-fns@4.1.0": {
+      "integrity": "sha512-Ukq0owbQXxa/U3EGtsdVBkR1w7KOQ5gIBqdH2hkvknzZPYvBxb/aa6E8L7tmjFtkwZBu3UXBbjIgPo/Ez4xaNg=="
     },
     "detect-libc@2.1.2": {
       "integrity": "sha512-Btj2BOOO83o3WyH59e8MgXsxEQVcarkUOpEYrubB0urwnN10yQ364rsiByU11nZlqWYZm05i/of7io4mzihBtQ=="
@@ -874,6 +878,7 @@
       "jsr:@std/assert@1",
       "npm:@buape/carbon@beta",
       "npm:@discordjs/formatters@0.6.0",
+      "npm:date-fns@^4.1.0",
       "npm:dotenv@^17.2.3",
       "npm:fast-fuzzy@^1.12.0",
       "npm:fuse.js@^7.1.0",
