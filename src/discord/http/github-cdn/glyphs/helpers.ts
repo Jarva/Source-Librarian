@@ -1,7 +1,7 @@
 import { cache } from "@/discord/http/github-cdn/cache.ts";
 import { type MessagePayloadFile } from "@buape/carbon";
 import { PATHS } from "@/discord/http/github-cdn/paths.ts";
-import {logger} from "../../../../logger.ts";
+import { logger } from "../../../../logger.ts";
 
 export const getMod = (namespace: string) => {
   switch (namespace) {
@@ -33,12 +33,12 @@ export const getImage = async (
 
   const animatedParts = [
     `${PATHS.animatedResourcesPrefix}/`,
-      textureNS,
-      "/",
-      texturePath,
-      ".gif",
-      "?raw=true",
-  ]
+    textureNS,
+    "/",
+    texturePath,
+    ".gif",
+    "?raw=true",
+  ];
 
   const parts = [
     `${PATHS.resourcesPrefix}/`,
@@ -58,7 +58,9 @@ export const getImage = async (
   const data = await cache.fetch(url);
 
   if (data === undefined || data.type !== "TextureCache") {
-    logger.warn(`Could not find ${url} or data type is incorrect: ${data?.type}`);
+    logger.warn(
+      `Could not find ${url} or data type is incorrect: ${data?.type}`,
+    );
     return null;
   }
 

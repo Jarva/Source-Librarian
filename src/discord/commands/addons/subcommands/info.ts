@@ -7,7 +7,11 @@ import {
   Embed,
 } from "@buape/carbon";
 import { userTargetOption } from "@/discord/helpers/user-target.ts";
-import {addonAutocomplete, addons, getAddonOption} from "@/discord/commands/addons/addons.ts";
+import {
+  addonAutocomplete,
+  addons,
+  getAddonOption,
+} from "@/discord/commands/addons/addons.ts";
 import { getMention, isEphemeral } from "@/discord/helpers/ephemeral.ts";
 import { cache } from "@/discord/commands/addons/addon-cache.ts";
 import { time, TimestampStyles } from "@discordjs/formatters";
@@ -42,7 +46,9 @@ export class AddonInfoCommand extends Command {
 
     const addon = addons[id];
 
-    const mod = await cache.fetch(addon.id, { signal: AbortSignal.timeout(CONFIG.TIMEOUTS.CURSEFORGE_API) });
+    const mod = await cache.fetch(addon.id, {
+      signal: AbortSignal.timeout(CONFIG.TIMEOUTS.CURSEFORGE_API),
+    });
     if (mod === undefined) {
       logger.error({ addonId: addon.id }, "Unable to retrieve addon data");
       return await interaction.reply({

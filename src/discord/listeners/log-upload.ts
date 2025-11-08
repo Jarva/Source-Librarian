@@ -1,9 +1,9 @@
 import {
+  APIAttachment,
   Client,
   ListenerEvent,
   ListenerEventData,
   MessageCreateListener,
-  APIAttachment
 } from "@buape/carbon";
 
 const MAX_ATTACHMENT_SIZE = 10 * 1024 * 1024; // 10 MiB
@@ -26,17 +26,21 @@ const filterLogAttachments = (
   attachments: APIAttachment[],
 ): APIAttachment[] => {
   return attachments
-    .filter(attachment => (attachment.content_type ?? "").includes("text/plain"))
-    .filter(attachment => attachment.size <= MAX_ATTACHMENT_SIZE);
+    .filter((attachment) =>
+      (attachment.content_type ?? "").includes("text/plain")
+    )
+    .filter((attachment) => attachment.size <= MAX_ATTACHMENT_SIZE);
 };
 
-const downloadAttachment = async (attachment: APIAttachment): Promise<string> => {
+const downloadAttachment = async (
+  attachment: APIAttachment,
+): Promise<string> => {
   const response = await fetch(attachment.url);
 
   if (!response.ok) {
     throw new Error(
       `Failed to download attachment: ${response.status} ${response.statusText}`,
-      { cause: { url: attachment.url, status: response.status } }
+      { cause: { url: attachment.url, status: response.status } },
     );
   }
 
@@ -55,7 +59,7 @@ const uploadLog = async (content: string): Promise<string> => {
   if (!response.ok) {
     throw new Error(
       `Failed to upload log to mclo.gs: ${response.status} ${response.statusText}`,
-      { cause: { status: response.status } }
+      { cause: { status: response.status } },
     );
   }
 
@@ -64,7 +68,7 @@ const uploadLog = async (content: string): Promise<string> => {
   if (!payload.success) {
     throw new Error(
       `mclo.gs API returned unsuccessful response: ${payload.error}`,
-      { cause: payload }
+      { cause: payload },
     );
   }
 
@@ -80,7 +84,7 @@ export class LogUpload extends MessageCreateListener {
 
     const uploads: string[] = [];
     for (const attachment of filterLogAttachments(data.message.attachments)) {
-      console.log("Found attachment", attachment)
+      console.log("Found attachment", attachment);
       const content = await downloadAttachment(attachment);
       const url = await uploadLog(content);
 
@@ -90,7 +94,7 @@ export class LogUpload extends MessageCreateListener {
     if (uploads.length === 0) return;
 
     await data.message.reply({
-      content: uploads.join('\n')
+      content: uploads.join("\n"),
     });
   }
 }

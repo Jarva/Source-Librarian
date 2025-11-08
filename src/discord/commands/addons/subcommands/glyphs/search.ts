@@ -58,7 +58,9 @@ export class AddonGlyphsSearchCommand extends Command {
 
     const entries = Object.values(glyphCache.data);
 
-    const fuse = new Fuse(entries, { keys: [{ name: "name", weight: 10 }, "description"] });
+    const fuse = new Fuse(entries, {
+      keys: [{ name: "name", weight: 10 }, "description"],
+    });
     const matches = fuse.search(query, { limit: 1 });
     if (matches.length === 0) {
       return await interaction.reply({
@@ -77,7 +79,10 @@ export class AddonGlyphsSearchCommand extends Command {
 
     const registryParts = data.registryName.split(":");
     if (registryParts.length < 2) {
-      logger.error({ registryName: data.registryName }, "Invalid registry name format in search result");
+      logger.error(
+        { registryName: data.registryName },
+        "Invalid registry name format in search result",
+      );
       return await interaction.reply({
         content: "Invalid glyph data format",
       });
@@ -122,9 +127,10 @@ export class AddonGlyphsSearchCommand extends Command {
     if (data.spellSchools.length > 0) {
       fields.push({
         name: "Schools",
-        value: data.spellSchools.map((school: any) => capitalize(school.id)).join(
-          ", ",
-        ),
+        value: data.spellSchools.map((school: any) => capitalize(school.id))
+          .join(
+            ", ",
+          ),
       });
     }
 
@@ -132,7 +138,12 @@ export class AddonGlyphsSearchCommand extends Command {
     if (augments.length > 0) {
       description += "\n";
     }
-    for (const [glyph, { translate }] of augments as [string, { translate: string }][]) {
+    for (
+      const [glyph, { translate }] of augments as [
+        string,
+        { translate: string },
+      ][]
+    ) {
       const exported = glyphCache.data[glyph];
       if (!exported) {
         logger.warn({ glyph }, "Referenced glyph not found in cache");

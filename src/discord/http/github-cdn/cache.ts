@@ -32,8 +32,15 @@ export const cache = new LRUCache<string, CacheEntry>({
     const res = await client.get(key);
     if (!res.ok) {
       const text = await res.text().catch(() => "<no body>");
-      const error = new Error(`GitHub CDN fetch failed for ${key}: ${res.status} ${res.statusText} - ${text}`);
-      logger.error({ key, status: res.status, statusText: res.statusText, responseText: text }, "GitHub CDN fetch failed");
+      const error = new Error(
+        `GitHub CDN fetch failed for ${key}: ${res.status} ${res.statusText} - ${text}`,
+      );
+      logger.error({
+        key,
+        status: res.status,
+        statusText: res.statusText,
+        responseText: text,
+      }, "GitHub CDN fetch failed");
       throw error;
     }
 
@@ -50,11 +57,11 @@ export const cache = new LRUCache<string, CacheEntry>({
       };
     }
     if (key.startsWith(PATHS.animatedResourcesPrefix)) {
-        const image = await res.blob();
-        return {
-            type: "TextureCache",
-            data: image,
-        };
+      const image = await res.blob();
+      return {
+        type: "TextureCache",
+        data: image,
+      };
     }
     if (key.startsWith(PATHS.resourcesPrefix)) {
       const image = await res.blob();

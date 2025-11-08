@@ -5,7 +5,11 @@ import {
   CommandOptions,
 } from "@buape/carbon";
 import { userTargetOption } from "@/discord/helpers/user-target.ts";
-import {addonAutocomplete, addonOption, addons} from "@/discord/commands/addons/addons.ts";
+import {
+  addonAutocomplete,
+  addonOption,
+  addons,
+} from "@/discord/commands/addons/addons.ts";
 import { getMention, isEphemeral } from "@/discord/helpers/ephemeral.ts";
 import { channelMention } from "@/discord/helpers/mention.ts";
 import { logger } from "@/logger.ts";
@@ -41,12 +45,14 @@ export class AddonDiscussionCommand extends Command {
     if (!addon.channel) {
       logger.warn({ addonId: id }, "No discussion channel found for addon");
       return interaction.reply({
-        content: "No discussion channel found."
+        content: "No discussion channel found.",
       });
     }
 
     await interaction.reply({
-      content: `${getMention(interaction) ?? ''}\n${channelMention(addon.channel)}`,
+      content: `${getMention(interaction) ?? ""}\n${
+        channelMention(addon.channel)
+      }`,
     });
   }
 }

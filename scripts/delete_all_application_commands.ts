@@ -3,10 +3,12 @@ import { requireEnv } from "../src/helpers/env.ts";
 import { discordPut } from "./helpers/discord.ts";
 import { logger } from "../src/logger.ts";
 
-const { DISCORD_TOKEN, DISCORD_CLIENT_ID } = requireEnv([
-  "DISCORD_TOKEN",
-  "DISCORD_CLIENT_ID",
-] as const);
+const { DISCORD_TOKEN, DISCORD_CLIENT_ID } = requireEnv(
+  [
+    "DISCORD_TOKEN",
+    "DISCORD_CLIENT_ID",
+  ] as const,
+);
 
 const path = `/applications/${DISCORD_CLIENT_ID}/commands`;
 

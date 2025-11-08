@@ -6,7 +6,7 @@ import {
 } from "@buape/carbon";
 import { AddonInfoCommand } from "@/discord/commands/addons/subcommands/info.ts";
 import { AddonsGlyphsCommand } from "@/discord/commands/addons/subcommands/glyphs.ts";
-import {AddonDiscussionCommand} from "@/discord/commands/addons/subcommands/discussion.ts";
+import { AddonDiscussionCommand } from "@/discord/commands/addons/subcommands/discussion.ts";
 
 export class AddonsCommand extends CommandWithSubcommandGroups {
   name = "addons";
@@ -14,6 +14,9 @@ export class AddonsCommand extends CommandWithSubcommandGroups {
 
   contexts: InteractionContextType[] = [InteractionContextType.Guild];
 
-  subcommands: Command[] = [new AddonInfoCommand(), new AddonDiscussionCommand()];
+  subcommands: Command[] = [
+    new AddonInfoCommand(),
+    new AddonDiscussionCommand(),
+  ];
   subcommandGroups: CommandWithSubcommands[] = [new AddonsGlyphsCommand()];
 }

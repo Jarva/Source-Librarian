@@ -23,7 +23,6 @@ interface Mod {
   source: string | null;
 }
 
-
 export const cache = new LRUCache<string, Mod>({
   max: Object.keys(addons).length,
   ttl: CONFIG.CACHE.TTL,
@@ -45,7 +44,7 @@ export const cache = new LRUCache<string, Mod>({
       const released = supported.filter((version) => version.releaseType === 1);
       const deduped = released.filter((version, index, self) =>
         self.findIndex((other) => other.gameVersion === version.gameVersion) ===
-        index
+          index
       );
 
       const versions = deduped.map((file) => ({

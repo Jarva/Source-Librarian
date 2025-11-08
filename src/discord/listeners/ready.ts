@@ -11,6 +11,9 @@ export class Ready extends ReadyListener {
     data: ListenerEventData[typeof ListenerEvent.Ready],
     _client: Client,
   ) {
-    logger.info({ user: data.user.username, guilds: data.guilds.length }, "Ready!");
+    logger.info(
+      { user: data.user.username, guilds: data.guilds.length },
+      "Ready!",
+    );
   }
 }
