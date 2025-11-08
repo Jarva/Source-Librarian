@@ -21,7 +21,8 @@ export class MentionGuard extends MessageCreateListener {
     if (!data.message.content.includes("@everyone")) return;
 
     await data.message.forward(ALERT_CHANNEL);
-    await data.message.forward(data.author.id);
+    const dm = await data.author.createDm(data.author.id);
+    await data.message.forward(dm.id);
     await data.message.delete();
     const timeout = addMinutes(new Date(), 15).toISOString();
     await data.member.timeoutMember(timeout, "Attempted to mention @everyone");
