@@ -21,6 +21,7 @@ export const withLabel = <TComponent extends SupportedComponent> (settings: Labe
 
     return new class extends Label {
       label = settings.label;
-      description = settings.description
+      description = settings.description;
+      component = component;
     };
 }
