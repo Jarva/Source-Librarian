@@ -1,7 +1,6 @@
 import {
   APIAttachment,
   Client,
-  ListenerEvent,
   ListenerEventData,
   MessageCreateListener,
 } from "@buape/carbon";
@@ -77,7 +76,7 @@ const uploadLog = async (content: string): Promise<string> => {
 
 export class LogUpload extends MessageCreateListener {
   override async handle(
-    data: ListenerEventData[typeof ListenerEvent.MessageCreate],
+    data: ListenerEventData[this["type"]],
     _client: Client,
   ) {
     if (!data.guild_id) return;

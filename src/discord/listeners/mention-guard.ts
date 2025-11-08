@@ -1,6 +1,5 @@
 import {
   Client,
-  ListenerEvent,
   ListenerEventData,
   MessageCreateListener,
 } from "@buape/carbon";
@@ -10,7 +9,7 @@ const ALERT_CHANNEL = "1285648414373056595";
 
 export class MentionGuard extends MessageCreateListener {
   override async handle(
-    data: ListenerEventData[typeof ListenerEvent.MessageCreate],
+    data: ListenerEventData[this["type"]],
     _client: Client,
   ) {
     if (!data.guild_id || !data.member || data.mention_everyone) return;

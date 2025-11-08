@@ -13,7 +13,6 @@ import { LmgtfyCommand } from "@/discord/commands/lmgtfy.ts";
 import { BinarySearchCommand } from "@/discord/commands/binary-search.ts";
 import { AncientCommand } from "@/discord/commands/ancient.ts";
 import { StarbuncleAdoptionCommand } from "@/discord/commands/starbuncle-adoption.ts";
-import { CreateStarbuncleAdoptionButtonCommand } from "@/discord/commands/create-starbuncle-adoption-button.ts";
 
 export default [
   new IframesCommand(),
@@ -30,5 +29,4 @@ export default [
   new BinarySearchCommand(),
   new AncientCommand(),
   new StarbuncleAdoptionCommand(),
-  new CreateStarbuncleAdoptionButtonCommand(),
 ] as Command[];
