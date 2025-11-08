@@ -3,14 +3,10 @@ import {
   ListenerEvent,
   ListenerEventData,
   MessageCreateListener,
-  PermissionFlagsBits,
 } from "@buape/carbon";
 import { addMinutes } from "date-fns";
 
 const ALERT_CHANNEL = "1285648414373056595";
-
-const hasPermission = (source: bigint, target: bigint) =>
-  (source & target) === target;
 
 export class MentionGuard extends MessageCreateListener {
   override async handle(
