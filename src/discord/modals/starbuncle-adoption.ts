@@ -6,6 +6,26 @@ import {
   TextInputStyle,
 } from "@buape/carbon";
 import { withLabel } from "../helpers/with-label.ts";
+import { Octokit } from "@octokit/rest";
+import {
+  createOrUpdateTextFile,
+} from "@octokit/plugin-create-or-update-text-file";
+import { getEnv } from "../../helpers/env.ts";
+
+const API = Octokit.plugin(createOrUpdateTextFile);
+const octokit = new API({ auth: getEnv("GITHUB_TOKEN") });
+
+export interface Supporters {
+  uuids: string[];
+  starbuncleAdoptions: StarbuncleAdoption[];
+}
+
+export interface StarbuncleAdoption {
+  name: string;
+  adopter: string;
+  color: string;
+  bio: string;
+}
 
 export const STARBUNCLE_COLOR = {
   white: "White",
@@ -112,18 +132,85 @@ export class StarbuncleAdoptionModal extends Modal {
   }
 
   async run(interaction: ModalInteraction) {
-    const responses = [
-      interaction.fields.getText("starbuncle_uuid", true),
-      interaction.fields.getStringSelect("starbuncle_color", true),
-      interaction.fields.getText("starbuncle_name", true),
-      interaction.fields.getText("adopter_name", true),
-      interaction.fields.getText("starbuncle_bio", true),
-    ];
+    const uuid = interaction.fields.getText("starbuncle_uuid", true);
+    const [color] = interaction.fields.getStringSelect(
+      "starbuncle_color",
+      true,
+    );
+    const name = interaction.fields.getText("starbuncle_name", true);
+    const adopter_name = interaction.fields.getText("adopter_name", true);
+    const bio = interaction.fields.getText("starbuncle_bio", true);
+
+    const baseRef = await octokit.git.getRef({
+      owner: "baileyholl",
+      repo: "Ars-Nouveau",
+      ref: "heads/main",
+    });
+    const baseSha = baseRef.data.object.sha;
+
+    const safeName = name
+      .toLowerCase()
+      .replace(/[^a-z0-9]+/g, "-")
+      .replace(/^-|-$/g, "");
+    const branchName = `adoption/${safeName || "starbuncle"}/${Date.now()}`;
+
+    await octokit.git.createRef({
+      owner: "Jarva",
+      repo: "Ars-Nouveau",
+      ref: `refs/heads/${branchName}`,
+      sha: baseSha,
+    });
+
+    await octokit.createOrUpdateTextFile({
+      owner: "Jarva",
+      repo: "Ars-Nouveau",
+      path: "supporters.json",
+      message: `chore: add starbuncle adoption for ${name}`,
+      branch: branchName,
+      committer: {
+        name: "Source Librarian",
+        email: "source-librarian@jarva.dev",
+      },
+      author: {
+        name: "Source Librarian",
+        email: "source-librarian@jarva.dev",
+      },
+      content({ exists, content }) {
+        if (!exists) return null;
+
+        const json = JSON.parse(content) as Supporters;
+        json.uuids.push(uuid);
+
+        json.starbuncleAdoptions.push({
+          name,
+          adopter: adopter_name,
+          color,
+          bio,
+        });
+
+        return JSON.stringify(json, null, 2);
+      },
+    });
+
+    const pr = await octokit.pulls.create({
+      owner: "baileyholl",
+      repo: "Ars-Nouveau",
+      base: "main",
+      head: `Jarva/${branchName}`,
+      title: `(Starbuncle Adoption) ${adopter_name} wants to adopt ${name}`,
+    });
+
     await interaction.reply({
       ephemeral: true,
-      content:
-        "Starbuncle adoption form received! This feature is still being implemented." +
-        JSON.stringify(responses, null, 2),
+      content: [
+        "<a::> **Starbuncle adoption form received!**",
+        `A [pull request](${pr.data.html_url}) has been created. Once it's merged, your Starbuncle will become available in-game, either randomly or with the following command:`,
+        "```",
+        `/ars-adopted by-adopter ${adopter_name}`,
+        "or",
+        `/ars-adopted by-name ${name}`,
+        "```",
+      ].join("\n"),
     });
   }
 }

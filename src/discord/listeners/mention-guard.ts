@@ -33,8 +33,8 @@ export class MentionGuard extends MessageCreateListener {
       data.author.send({
         content:
           "Your message was removed, and you've been given a 15-minute timeout for attempting to mention \@everyone. This is an anti-spam measure.",
-      })
-    ]
+      }),
+    ];
     await Promise.allSettled(promises);
   }
 }
