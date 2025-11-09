@@ -61,8 +61,7 @@ const getStarbuncleOptions = () => {
 // Allows Unicode letters, numbers, spaces, hyphens, and underscores
 // \p{L} matches any letter from any language
 // \p{N} matches any numeric character from any language
-const NAME_PATTERN = /^[\p{L}\p{N}\s\-_]+$/u;
-
+const NAME_PATTERN = /^[\p{L}\p{N}\s\-_\.]+$/u;
 const validateTextPattern = (text: string): boolean => {
   return NAME_PATTERN.test(text);
 };
@@ -158,7 +157,7 @@ export class StarbuncleAdoptionModal extends Modal {
       });
     }
 
-    const textPatternError = "can only contain letters, numbers, spaces, hyphens, and underscores.";
+    const textPatternError = "can only contain letters, numbers, spaces, hyphens, and underscores. (If you believe your name should be allowed, please ping <@202407548916203520>)";
 
     if (!validateTextPattern(name)) {
       return await interaction.reply({
