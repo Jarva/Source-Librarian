@@ -11,6 +11,7 @@ import {
   createOrUpdateTextFile,
 } from "@octokit/plugin-create-or-update-text-file";
 import { getEnv } from "../../helpers/env.ts";
+import { validate } from "@std/uuid";
 
 const API = Octokit.plugin(createOrUpdateTextFile);
 const octokit = new API({ auth: getEnv("GITHUB_TOKEN") });
@@ -55,6 +56,15 @@ const getStarbuncleOptions = () => {
     label,
     default: index === idx,
   }));
+};
+
+// Allows Unicode letters, numbers, spaces, hyphens, and underscores
+// \p{L} matches any letter from any language
+// \p{N} matches any numeric character from any language
+const NAME_PATTERN = /^[\p{L}\p{N}\s\-_]+$/u;
+
+const validateTextPattern = (text: string): boolean => {
+  return NAME_PATTERN.test(text);
 };
 
 interface AdoptionSettings {
@@ -140,6 +150,29 @@ export class StarbuncleAdoptionModal extends Modal {
     const name = interaction.fields.getText("starbuncle_name", true);
     const adopter_name = interaction.fields.getText("adopter_name", true);
     const bio = interaction.fields.getText("starbuncle_bio", true);
+
+    if (!validate(uuid)) {
+      return await interaction.reply({
+        ephemeral: true,
+        content: "Invalid Minecraft UUID format. Please provide a valid UUID.",
+      });
+    }
+
+    const textPatternError = "can only contain letters, numbers, spaces, hyphens, and underscores.";
+
+    if (!validateTextPattern(name)) {
+      return await interaction.reply({
+        ephemeral: true,
+        content: `Starbuncle Name ${textPatternError}`,
+      });
+    }
+
+    if (!validateTextPattern(adopter_name)) {
+      return await interaction.reply({
+        ephemeral: true,
+        content: `Adopter Name ${textPatternError}`,
+      });
+    }
 
     const baseRef = await octokit.git.getRef({
       owner: "baileyholl",

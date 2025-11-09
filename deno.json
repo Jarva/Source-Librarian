@@ -9,6 +9,7 @@
     "@octokit/plugin-create-or-update-text-file": "npm:@octokit/plugin-create-or-update-text-file@^6.0.2",
     "@octokit/rest": "npm:@octokit/rest@^22.0.1",
     "@std/assert": "jsr:@std/assert@1",
+    "@std/uuid": "jsr:@std/uuid@^1.0.9",
     "date-fns": "npm:date-fns@^4.1.0",
     "dotenv": "npm:dotenv@^17.2.3",
     "fast-fuzzy": "npm:fast-fuzzy@^1.12.0",

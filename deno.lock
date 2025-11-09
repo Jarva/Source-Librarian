@@ -2,8 +2,11 @@
   "version": "5",
   "specifiers": {
     "jsr:@std/assert@1": "1.0.12",
+    "jsr:@std/bytes@^1.0.6": "1.0.6",
+    "jsr:@std/crypto@^1.0.5": "1.0.5",
     "jsr:@std/dotenv@*": "0.225.3",
     "jsr:@std/internal@^1.0.6": "1.0.6",
+    "jsr:@std/uuid@^1.0.9": "1.0.9",
     "npm:@buape/carbon@0.13.0": "0.13.0_hono@4.7.10",
     "npm:@discordjs/formatters@*": "0.6.0",
     "npm:@discordjs/formatters@0.6.0": "0.6.0",
@@ -41,11 +44,24 @@
         "jsr:@std/internal"
       ]
     },
+    "@std/bytes@1.0.6": {
+      "integrity": "f6ac6adbd8ccd99314045f5703e23af0a68d7f7e58364b47d2c7f408aeb5820a"
+    },
+    "@std/crypto@1.0.5": {
+      "integrity": "0dcfbb319fe0bba1bd3af904ceb4f948cde1b92979ec1614528380ed308a3b40"
+    },
     "@std/dotenv@0.225.3": {
       "integrity": "a95e5b812c27b0854c52acbae215856d9cce9d4bbf774d938c51d212711e8d4a"
     },
     "@std/internal@1.0.6": {
       "integrity": "9533b128f230f73bd209408bb07a4b12f8d4255ab2a4d22a1fd6d87304aca9a4"
+    },
+    "@std/uuid@1.0.9": {
+      "integrity": "44b627bf2d372fe1bd099e2ad41b2be41a777fc94e62a3151006895a037f1642",
+      "dependencies": [
+        "jsr:@std/bytes",
+        "jsr:@std/crypto"
+      ]
     }
   },
   "npm": {
@@ -1158,6 +1174,7 @@
   "workspace": {
     "dependencies": [
       "jsr:@std/assert@1",
+      "jsr:@std/uuid@^1.0.9",
       "npm:@buape/carbon@0.13.0",
       "npm:@discordjs/formatters@0.6.0",
       "npm:@octokit/plugin-create-or-update-text-file@^6.0.2",
