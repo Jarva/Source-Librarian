@@ -15,7 +15,7 @@ export class StarbuncleAdoptionCommand extends Command {
   description = "Create a button that opens the Starbuncle adoption form";
 
   contexts: InteractionContextType[] = [InteractionContextType.Guild];
-  permission = Permission.ManageGuild;
+  permission = Permission.ManageRoles;
 
   components = [new StarbuncleAdoptionButton()]
 
