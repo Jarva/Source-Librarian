@@ -196,7 +196,7 @@ export class StarbuncleAdoptionModal extends Modal {
       owner: "baileyholl",
       repo: "Ars-Nouveau",
       base: "main",
-      head: `Jarva/${branchName}`,
+      head: `Jarva:${branchName}`,
       title: `(Starbuncle Adoption) ${adopter_name} wants to adopt ${name}`,
     });
 

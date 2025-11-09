@@ -17,6 +17,8 @@ export class StarbuncleAdoptionCommand extends Command {
   contexts: InteractionContextType[] = [InteractionContextType.Guild];
   permission = Permission.ManageGuild;
 
+  components = [new StarbuncleAdoptionButton()]
+
   async run(interaction: CommandInteraction) {
     const file = new Blob([
       Deno.readFileSync("./resources/starbuncle_colors.png"),
