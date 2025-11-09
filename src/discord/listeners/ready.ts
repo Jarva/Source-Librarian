@@ -1,8 +1,4 @@
-import {
-  Client,
-  ListenerEventData,
-  ReadyListener,
-} from "@buape/carbon";
+import { Client, ListenerEventData, ReadyListener } from "@buape/carbon";
 import { logger } from "@/logger.ts";
 
 export class Ready extends ReadyListener {
