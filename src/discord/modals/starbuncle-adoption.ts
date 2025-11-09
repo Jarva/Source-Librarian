@@ -66,6 +66,20 @@ const validateTextPattern = (text: string): boolean => {
   return NAME_PATTERN.test(text);
 };
 
+const createPR = async (branch: string, adopter: string, starbuncle: string) => {
+  if (adopter.endsWith("_draft")) {
+    return ""
+  }
+  const pr = await octokit.pulls.create({
+    owner: "baileyholl",
+    repo: "Ars-Nouveau",
+    base: "main",
+    head: `Jarva:${branch}`,
+    title: `(Starbuncle Adoption) ${adopter} wants to adopt ${starbuncle}`,
+  });
+  return pr.data.html_url;
+}
+
 interface AdoptionSettings {
   name?: string;
 }
@@ -225,19 +239,13 @@ export class StarbuncleAdoptionModal extends Modal {
       },
     });
 
-    const pr = await octokit.pulls.create({
-      owner: "baileyholl",
-      repo: "Ars-Nouveau",
-      base: "main",
-      head: `Jarva:${branchName}`,
-      title: `(Starbuncle Adoption) ${adopter_name} wants to adopt ${name}`,
-    });
+    const url = await createPR(branchName, adopter_name, name);
 
     await interaction.reply({
       ephemeral: true,
       content: [
         "<a:starbuncle_speed:860323942005997588> **Starbuncle adoption form received!**",
-        `A [pull request](<${pr.data.html_url}>) has been created. Once it's merged, your Starbuncle will become available in-game, either randomly or with the following command:`,
+        `A [pull request](<${url}>) has been created. Once it's merged, your Starbuncle will become available in-game, either randomly or with the following command:`,
         "```",
         `/ars-adopted by-adopter ${adopter_name}`,
         "or",
