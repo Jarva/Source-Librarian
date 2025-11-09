@@ -245,7 +245,7 @@ export class StarbuncleAdoptionModal extends Modal {
       ephemeral: true,
       content: [
         "<a:starbuncle_speed:860323942005997588> **Starbuncle adoption form received!**",
-        `A [pull request](<${url}>) has been created. Once it's merged, your Starbuncle will become available in-game, either randomly or with the following command:`,
+        `A [pull request](<${url}>) has been created. Once it's merged, your Starbuncle will become available in-game, either found randomly or spawned in with the following command:`,
         "```",
         `/ars-adopted by-adopter ${adopter_name}`,
         "or",
