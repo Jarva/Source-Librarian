@@ -3,6 +3,7 @@ FieldsHandler,
   Modal,
   type ModalInteraction,
   StringSelectMenu,
+  TextDisplay,
   TextInput,
   TextInputStyle,
 } from "@buape/carbon";
@@ -43,10 +44,17 @@ export class StarbuncleAdoptionModal extends Modal {
     super();
 
     this.components = [
+      new TextDisplay(
+        [
+          "Adopted Starbuncles can randomly spawn in the world. They drop a Starbuncle Token that retains their name, color, adopter name and bio.",
+          "",
+          "To find your Minecraft UUID, [click here](https://minecraftuuid.com/)",
+          "To view the different Starbuncle colors, [click here](https://github.com/user-attachments/assets/231d1dd4-438e-4267-9f8f-fae8ce19ed1e)"
+        ].join("\n")
+      ),
       withLabel(
         {
           label: "Minecraft UUID",
-          description: "[Find your UUID here](https://minecraftuuid.com/)",
         },
         TextInput,
         {
