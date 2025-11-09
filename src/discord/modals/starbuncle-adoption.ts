@@ -157,7 +157,7 @@ export class StarbuncleAdoptionModal extends Modal {
       });
     }
 
-    const textPatternError = "can only contain letters, numbers, spaces, hyphens, and underscores. (If you believe your name should be allowed, please ping <@202407548916203520>)";
+    const textPatternError = "can only contain letters, numbers, spaces, hyphens, periods, and underscores. (If you believe your name should be allowed, please ping <@202407548916203520>)";
 
     if (!validateTextPattern(name)) {
       return await interaction.reply({
@@ -212,6 +212,7 @@ export class StarbuncleAdoptionModal extends Modal {
 
         const json = JSON.parse(content) as Supporters;
         json.uuids.push(uuid);
+        json.uuids = [...new Set(json.uuids)]
 
         json.starbuncleAdoptions.push({
           name,
