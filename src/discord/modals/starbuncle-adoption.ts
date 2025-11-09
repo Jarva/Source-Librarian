@@ -203,14 +203,16 @@ export class StarbuncleAdoptionModal extends Modal {
     await interaction.reply({
       ephemeral: true,
       content: [
-        "<a::> **Starbuncle adoption form received!**",
-        `A [pull request](${pr.data.html_url}) has been created. Once it's merged, your Starbuncle will become available in-game, either randomly or with the following command:`,
+        "<a:starbuncle_speed:860323942005997588> **Starbuncle adoption form received!**",
+        `A [pull request](<${pr.data.html_url}>) has been created. Once it's merged, your Starbuncle will become available in-game, either randomly or with the following command:`,
         "```",
         `/ars-adopted by-adopter ${adopter_name}`,
         "or",
         `/ars-adopted by-name ${name}`,
         "```",
       ].join("\n"),
-    });
+      sticker_ids: ["1245741044704739410"]
+    // deno-lint-ignore no-explicit-any
+    } as any);
   }
 }
