@@ -23,9 +23,12 @@ export class StarbuncleAdoptionCommand extends Command {
     ]);
     await interaction.reply({
       content: [
-        "Adopted Starbuncles can randomly spawn in the world. They drop a Starbuncle Token that retains their name, color, adopter name and bio.",
+        "# Adopt-A-Starbuncle",
+        "Patreon supporters are able to adopt Starbuncles that randomly spawn in the world.",
+        "These Starbuncles retain their name, color, adopter name and biography even when turned into Starbuncle Tokens.",
         "",
-        "[Click here to find your Minecraft UUID](<https://minecraftuuid.com/>)",
+        "Before you start the form, you'll need to [find your Minecraft UUID](<https://minecraftuuid.com/>)",
+        "Once that's done, click button below to start the adoption process <a:starbuncle_speed:860323942005997588>",
       ].join("\n"),
       files: [
         {
