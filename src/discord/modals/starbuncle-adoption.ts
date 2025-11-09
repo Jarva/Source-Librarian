@@ -1,4 +1,5 @@
 import {
+FieldsHandler,
   Modal,
   type ModalInteraction,
   StringSelectMenu,
@@ -106,10 +107,17 @@ export class StarbuncleAdoptionModal extends Modal {
   }
 
   async run(interaction: ModalInteraction) {
+    const responses = [
+      interaction.fields.getText("starbuncle_uuid", true),
+      interaction.fields.getStringSelect("starbuncle_color", true),
+      interaction.fields.getText("starbuncle_name", true),
+      interaction.fields.getText("adopter_name", true),
+      interaction.fields.getText("starbuncle_bio", true),
+    ]
     await interaction.reply({
       ephemeral: true,
       content:
-        "Starbuncle adoption form received! This feature is still being implemented." + JSON.stringify(interaction.fields),
+        "Starbuncle adoption form received! This feature is still being implemented." + JSON.stringify(responses),
     });
   }
 }
