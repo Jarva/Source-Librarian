@@ -1,9 +1,7 @@
 import {
-FieldsHandler,
   Modal,
   type ModalInteraction,
   StringSelectMenu,
-  TextDisplay,
   TextInput,
   TextInputStyle,
 } from "@buape/carbon";
@@ -28,9 +26,12 @@ export const STARBUNCLE_COLOR = {
   black: "Black",
 } as const;
 
-export const STARBUNCLE_COLOR_OPTIONS = Object.entries(STARBUNCLE_COLOR).map((
-  [value, label],
-) => ({ value, label }));
+const getStarbuncleOptions = () => {
+  const entries = Object.entries(STARBUNCLE_COLOR);
+  const idx = Math.floor(Math.random() * entries.length);
+
+  return entries.map(([value, label], index) => ({ value, label, default: index === idx }));
+}
 
 interface AdoptionSettings {
   name?: string;
@@ -73,7 +74,7 @@ export class StarbuncleAdoptionModal extends Modal {
           required: true,
           maxValues: 1,
           minValues: 1,
-          options: STARBUNCLE_COLOR_OPTIONS,
+          options: getStarbuncleOptions(),
         },
       ),
       withLabel(
