@@ -30,8 +30,12 @@ const getStarbuncleOptions = () => {
   const entries = Object.entries(STARBUNCLE_COLOR);
   const idx = Math.floor(Math.random() * entries.length);
 
-  return entries.map(([value, label], index) => ({ value, label, default: index === idx }));
-}
+  return entries.map(([value, label], index) => ({
+    value,
+    label,
+    default: index === idx,
+  }));
+};
 
 interface AdoptionSettings {
   name?: string;
@@ -114,11 +118,12 @@ export class StarbuncleAdoptionModal extends Modal {
       interaction.fields.getText("starbuncle_name", true),
       interaction.fields.getText("adopter_name", true),
       interaction.fields.getText("starbuncle_bio", true),
-    ]
+    ];
     await interaction.reply({
       ephemeral: true,
       content:
-        "Starbuncle adoption form received! This feature is still being implemented." + JSON.stringify(responses, null, 2),
+        "Starbuncle adoption form received! This feature is still being implemented." +
+        JSON.stringify(responses, null, 2),
     });
   }
 }

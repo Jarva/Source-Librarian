@@ -20,7 +20,7 @@ const env = requireEnv(
 export const client = new Client({
   baseUrl: env.BASE_URL,
   disableDeployRoute: true,
-  autoDeploy: true,
+  autoDeploy: false,
   clientId: env.DISCORD_CLIENT_ID,
   publicKey: env.DISCORD_PUBLIC_KEY,
   token: env.DISCORD_TOKEN,

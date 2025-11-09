@@ -15,7 +15,8 @@ export class StarbuncleAdoptionCommand extends Command {
 
   async run(interaction: CommandInteraction) {
     if (!interaction.member) return;
-    const name = interaction.member.nickname ?? interaction.member.user.globalName ?? undefined;
+    const name = interaction.member.nickname ??
+      interaction.member.user.globalName ?? undefined;
     const modal = new StarbuncleAdoptionModal({ name });
     await interaction.showModal(modal);
   }
