@@ -15,6 +15,7 @@ export class StarbuncleAdoptionCommand extends Command {
 
   async run(interaction: CommandInteraction) {
     const modal = new StarbuncleAdoptionModal();
+    console.log('Modal', modal.serialize());
     await interaction.showModal(modal);
   }
 }
