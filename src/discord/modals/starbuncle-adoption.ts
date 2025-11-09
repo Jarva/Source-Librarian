@@ -46,7 +46,7 @@ export class StarbuncleAdoptionModal extends Modal {
       withLabel(
         {
           label: "Minecraft UUID",
-          description: "https://minecraftuuid.com/",
+          description: "[Find your UUID here](https://minecraftuuid.com/)",
         },
         TextInput,
         {
