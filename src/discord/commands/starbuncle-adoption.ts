@@ -14,8 +14,9 @@ export class StarbuncleAdoptionCommand extends Command {
   contexts: InteractionContextType[] = [InteractionContextType.Guild];
 
   async run(interaction: CommandInteraction) {
-    const modal = new StarbuncleAdoptionModal();
-    console.log('Modal', modal.serialize());
+    if (!interaction.member) return;
+    const name = interaction.member.nickname ?? interaction.member.user.globalName ?? undefined;
+    const modal = new StarbuncleAdoptionModal({ name });
     await interaction.showModal(modal);
   }
 }
