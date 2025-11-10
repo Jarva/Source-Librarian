@@ -12,7 +12,7 @@ const getVersions = (latestFileIndexes: LatestFilesIndex[]): LatestFilesIndex[] 
   return Object.values(byGameVersion)
     .flatMap(versions =>
       versions.reduce<{ versions: LatestFilesIndex[], mostStable: number }>((acc, curr) => {
-        if (acc.mostStable >= curr.releaseType) {
+        if (acc.mostStable > curr.releaseType) {
           acc.versions.push(curr);
           acc.mostStable = curr.releaseType;
         }
