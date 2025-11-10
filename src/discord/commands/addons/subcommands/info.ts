@@ -57,8 +57,8 @@ export class AddonInfoCommand extends Command {
     }
 
     const versions = mod.versions.map((version) =>
-      `[${version.name}](${version.link})`
-    ).join(", ");
+      `- [${version.name}](${version.link})`
+    ).join("\n");
 
     const fields: APIEmbedField[] = [
       { name: "Supported Versions", value: `${versions}` },
