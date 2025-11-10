@@ -57,7 +57,7 @@ export const cache = new LRUCache<string, Mod>({
       const { data: mod } = root;
 
       const versions = getVersions(mod.latestFilesIndexes).map((file) => ({
-        name: file.gameVersion + fileNameSuffix[file.releaseType],
+        name: file.gameVersion + fileNameSuffix[file.releaseType - 1],
         link: `${mod.links.websiteUrl}/files/${file.fileId}`,
       }));
 
