@@ -15,6 +15,7 @@
     "npm:date-fns@^4.1.0": "4.1.0",
     "npm:dotenv@*": "17.2.3",
     "npm:dotenv@^17.2.3": "17.2.3",
+    "npm:es-toolkit@^1.41.0": "1.41.0",
     "npm:fast-fuzzy@*": "1.12.0",
     "npm:fast-fuzzy@^1.12.0": "1.12.0",
     "npm:file-system-cache@*": "2.4.7",
@@ -677,6 +678,9 @@
     "emoji-regex@9.2.2": {
       "integrity": "sha512-L18DaJsXSUk2+42pv8mLs5jJT2hqFkFE4j21wOmgbUqsZ2hL72NsUU785g9RXgo3s0ZNgVl42TiHp3ZtOv/Vyg=="
     },
+    "es-toolkit@1.41.0": {
+      "integrity": "sha512-bDd3oRmbVgqZCJS6WmeQieOrzpl3URcWBUVDXxOELlUW2FuW+0glPOz1n0KnRie+PdyvUZcXz2sOn00c6pPRIA=="
+    },
     "fast-content-type-parse@3.0.0": {
       "integrity": "sha512-ZvLdcY8P+N8mGQJahJV5G4U88CSvT1rP8ApL6uETe88MBXrBHAkZlSEySdUlyztF7ccb+Znos3TFqaepHxdhBg=="
     },
@@ -1181,6 +1185,7 @@
       "npm:@octokit/rest@^22.0.1",
       "npm:date-fns@^4.1.0",
       "npm:dotenv@^17.2.3",
+      "npm:es-toolkit@^1.41.0",
       "npm:fast-fuzzy@^1.12.0",
       "npm:fuse.js@^7.1.0",
       "npm:hono@^4.7.10",

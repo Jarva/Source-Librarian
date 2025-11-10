@@ -1,9 +1,25 @@
 import { LRUCache } from "lru-cache";
 import { addons } from "@/discord/commands/addons/addons.ts";
-import { Root } from "@/discord/http/curseforge/types.ts";
+import { Root, LatestFilesIndex } from "@/discord/http/curseforge/types.ts";
 import { client } from "@/discord/http/curseforge/client.ts";
 import { logger } from "@/logger.ts";
 import { CONFIG } from "@/config.ts";
+import { groupBy } from "es-toolkit";
+
+const getVersions = (latestFileIndexes: LatestFilesIndex[]): LatestFilesIndex[] => {
+  const byGameVersion = groupBy(latestFileIndexes, v => v.gameVersion);
+
+  return Object.values(byGameVersion)
+    .flatMap(versions =>
+      versions.reduce<{ versions: LatestFilesIndex[], mostStable: number }>((acc, curr) => {
+        if (acc.mostStable >= curr.releaseType) {
+          acc.versions.push(curr);
+          acc.mostStable = curr.releaseType;
+        }
+        return acc;
+      }, { versions: [], mostStable: 10 }).versions
+    );
+}
 
 interface Version {
   name: string;
@@ -23,6 +39,8 @@ interface Mod {
   source: string | null;
 }
 
+const fileNameSuffix = ["", " (Beta)", " (Alpha)"]
+
 export const cache = new LRUCache<string, Mod>({
   max: Object.keys(addons).length,
   ttl: CONFIG.CACHE.TTL,
@@ -38,17 +56,8 @@ export const cache = new LRUCache<string, Mod>({
 
       const { data: mod } = root;
 
-      const supported = mod.latestFilesIndexes.filter((version) =>
-        CONFIG.SUPPORTED_VERSIONS.includes(version.gameVersion as any)
-      );
-      const released = supported.filter((version) => version.releaseType === 1);
-      const deduped = released.filter((version, index, self) =>
-        self.findIndex((other) => other.gameVersion === version.gameVersion) ===
-          index
-      );
-
-      const versions = deduped.map((file) => ({
-        name: file.gameVersion,
+      const versions = getVersions(mod.latestFilesIndexes).map((file) => ({
+        name: file.gameVersion + fileNameSuffix[file.releaseType],
         link: `${mod.links.websiteUrl}/files/${file.fileId}`,
       }));
 
