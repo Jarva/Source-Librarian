@@ -134,6 +134,31 @@ export class AddonGlyphsSearchCommand extends Command {
       });
     }
 
+    if (data.defaults.defaultConfig) {
+      const config = data.defaults.defaultConfig;
+      const configValues: string[] = [];
+
+      if (config.baseDamage) {
+        configValues.push(`Base Damage: ${config.baseDamage}`);
+      }
+      if (config.ampDamage) {
+        configValues.push(`Boost for each Amp: ${config.ampDamage}`);
+      }
+      if (config.baseDuration) {
+        configValues.push(`Base Effect Duration: ${config.baseDuration}s`);
+      }
+      if (config.ampDuration) {
+        configValues.push(`Extend Time Duration Increase: ${config.ampDuration}s`);
+      }
+
+      if (configValues.length > 0) {
+        fields.push({
+          name: "Default Config",
+          value: configValues.join("\n"),
+        });
+      }
+    }
+
     const augments = Object.entries(data.defaults.augments.descriptions);
     if (augments.length > 0) {
       description += "\n";
