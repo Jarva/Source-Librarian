@@ -17,7 +17,7 @@ export class StarbuncleAdoptionCommand extends Command {
   contexts: InteractionContextType[] = [InteractionContextType.Guild];
   permission = Permission.ManageRoles;
 
-  components = [new StarbuncleAdoptionButton()]
+  components = [new StarbuncleAdoptionButton()];
 
   async run(interaction: CommandInteraction) {
     const file = new Blob([

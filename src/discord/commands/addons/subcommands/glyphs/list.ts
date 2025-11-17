@@ -10,7 +10,6 @@ import {
 import {
   addonAutocomplete,
   addonOption,
-  addons,
 } from "@/discord/commands/addons/addons.ts";
 import { userTargetOption } from "@/discord/helpers/user-target.ts";
 import { isEphemeral } from "@/discord/helpers/ephemeral.ts";

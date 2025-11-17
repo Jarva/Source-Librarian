@@ -66,9 +66,13 @@ const validateTextPattern = (text: string): boolean => {
   return NAME_PATTERN.test(text);
 };
 
-const createPR = async (branch: string, adopter: string, starbuncle: string) => {
+const createPR = async (
+  branch: string,
+  adopter: string,
+  starbuncle: string,
+) => {
   if (adopter.endsWith("_draft")) {
-    return ""
+    return "";
   }
   const pr = await octokit.pulls.create({
     owner: "baileyholl",
@@ -78,7 +82,7 @@ const createPR = async (branch: string, adopter: string, starbuncle: string) => 
     title: `(Starbuncle Adoption) ${adopter} wants to adopt ${starbuncle}`,
   });
   return pr.data.html_url;
-}
+};
 
 interface AdoptionSettings {
   name?: string;
@@ -171,7 +175,8 @@ export class StarbuncleAdoptionModal extends Modal {
       });
     }
 
-    const textPatternError = "can only contain letters, numbers, spaces, hyphens, periods, and underscores. (If you believe your name should be allowed, please ping <@202407548916203520>)";
+    const textPatternError =
+      "can only contain letters, numbers, spaces, hyphens, periods, and underscores. (If you believe your name should be allowed, please ping <@202407548916203520>)";
 
     if (!validateTextPattern(name)) {
       return await interaction.reply({
@@ -226,7 +231,7 @@ export class StarbuncleAdoptionModal extends Modal {
 
         const json = JSON.parse(content) as Supporters;
         json.uuids.push(uuid);
-        json.uuids = [...new Set(json.uuids)]
+        json.uuids = [...new Set(json.uuids)];
 
         json.starbuncleAdoptions.push({
           name,
@@ -252,8 +257,8 @@ export class StarbuncleAdoptionModal extends Modal {
         `/ars-adopted by-name ${name}`,
         "```",
       ].join("\n"),
-      sticker_ids: ["1245741044704739410"]
-    // deno-lint-ignore no-explicit-any
+      sticker_ids: ["1245741044704739410"],
+      // deno-lint-ignore no-explicit-any
     } as any);
   }
 }
