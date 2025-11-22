@@ -210,4 +210,9 @@ export const addons: Record<string, Addon> = {
     channel: "1353092379628011650",
     categories: ["supplementary"],
   },
+  "ars_zero": {
+    id: "1377482",
+    channel: "1432008462929236071",
+    categories: ["supplementary", "power-fantasy"],
+  },
 };
