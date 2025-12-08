@@ -4,8 +4,23 @@ import {
   MessageCreateListener,
 } from "@buape/carbon";
 import { reportAndTimeout } from "../../helpers/timeout.ts";
+import { LRUCache } from "lru-cache";
 
 const extensions = [".png", ".jpg", ".jpeg", ".gif"]
+
+const cache = new LRUCache<string, number>({
+  max: 500,
+  ttl: 1000 * 20,
+});
+
+const increment = (id: string) => {
+  const count = (cache.get(id) ?? 0) + 1;
+  cache.set(
+    id,
+    count
+  );
+  return count;
+}
 
 export class SpamBan extends MessageCreateListener {
   override async handle(
@@ -26,13 +41,15 @@ export class SpamBan extends MessageCreateListener {
     }, 0)
 
     if (count >= 4 || data.message.attachments.length >= 4) {
-      reportAndTimeout({
-        data,
-        timeout: 15,
-        reason: "Sent 4 or more images at once",
-        client,
-        content: "Your message was removed, and you've been given a 15-minute timeout for sending too many images at once. This is an anti-spam measure."
-      });
+      if (increment(data.author.id) > 1) {
+        reportAndTimeout({
+          data,
+          timeout: 15,
+          reason: "Sent 4 or more images at once",
+          client,
+          content: "Your message was removed, and you've been given a 15-minute timeout for sending too many images at once. This is an anti-spam measure."
+        });
+      }
     }
   }
 }
