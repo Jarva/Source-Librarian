@@ -25,15 +25,7 @@ export class SpamBan extends MessageCreateListener {
       return acc;
     }, 0)
 
-    if (data.author.id === "202407548916203520") {
-      console.log(JSON.stringify({
-        content: data.message.content,
-        attachments: data.message.attachments.length,
-        count
-      }))
-    }
-
-    if (count >= 4) {
+    if (count >= 4 || data.message.attachments.length >= 4) {
       reportAndTimeout({
         data,
         timeout: 15,
