@@ -5,6 +5,8 @@ import {
 } from "@buape/carbon";
 import { reportAndTimeout } from "../../helpers/timeout.ts";
 
+const extensions = [".png", ".jpg", ".jpeg", ".gif"]
+
 export class SpamBan extends MessageCreateListener {
   override async handle(
     data: ListenerEventData[this["type"]],
@@ -12,14 +14,26 @@ export class SpamBan extends MessageCreateListener {
   ) {
     if (!data.guild_id || !data.member || data.author.bot) return;
 
+    const words: string[] = data.message.content.split(/[^A-Za-z]/);
+
+    const count = words.reduce((acc, curr) => {
+      try {
+        const url = new URL(curr);
+        const isImage = extensions.some(extension => url.pathname.endsWith(extension));
+        return acc += Number(isImage);
+      } catch {}
+      return acc;
+    }, 0)
+
     if (data.author.id === "202407548916203520") {
       console.log(JSON.stringify({
         content: data.message.content,
-        attachments: data.message.attachments.length
+        attachments: data.message.attachments.length,
+        count
       }))
     }
 
-    if (data.message.attachments.length >= 4) {
+    if (count >= 4) {
       reportAndTimeout({
         data,
         timeout: 15,
