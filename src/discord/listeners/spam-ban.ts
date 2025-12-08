@@ -15,6 +15,7 @@ const cache = new LRUCache<string, [string, string][]>({
 
 const increment = (id: string, channel: string, message: string) => {
   const messages = (cache.get(id) ?? []).concat([channel, message]);
+  console.log(`Incrementing ${id} to count ${messages.length}`)
   cache.set(
     id,
     messages
