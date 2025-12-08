@@ -25,5 +25,6 @@ export const reportAndTimeout = async (options: ReportAndTimeoutOptions) => {
         content: options.content
       }),
     ];
-    await Promise.allSettled(promises);
+    const results = await Promise.allSettled(promises);
+    console.log(JSON.stringify(results));
 }
