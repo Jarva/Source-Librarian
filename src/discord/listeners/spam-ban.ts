@@ -42,7 +42,7 @@ export class SpamBan extends MessageCreateListener {
     }, 0)
 
     if (count >= 4 || data.message.attachments.length >= 4) {
-      const messages = increment(data.author.id, data.channel.id, data.message.id);
+      const messages = increment(data.author.id, data.channel_id, data.message.id);
       if (messages.length > 1) {
         reportAndTimeout({
           data,
