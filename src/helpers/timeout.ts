@@ -2,7 +2,7 @@ import { ListenerEventData, Message, User } from "@buape/carbon";
 
 const ARS_ALERT_CHANNEL = "1285648414373056595";
 
-export const forwardToDM = async (message: Message, author: User) {
+export const forwardToDM = async (message: Message, author: User) => {
     const dm = await author.createDm(author.id);
     await message.forward(dm.id);
 }
