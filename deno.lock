@@ -36,7 +36,8 @@
     "npm:safe-stable-stringify@^2.5.0": "2.5.0",
     "npm:sharp@*": "0.34.5",
     "npm:sharp@~0.34.5": "0.34.5",
-    "npm:typescript-result@*": "3.1.1"
+    "npm:typescript-result@*": "3.5.2",
+    "npm:typescript-result@^3.5.2": "3.5.2"
   },
   "jsr": {
     "@std/assert@1.0.12": {
@@ -1105,8 +1106,8 @@
         "ts-toolbelt"
       ]
     },
-    "typescript-result@3.1.1": {
-      "integrity": "sha512-KQ7SdBa1UcZCu+qI7pgZ1FdzBIlGiyoHTaQQDshtsKCKiPdzLlkU6OWkJuhjzo+xl+y+dOVO+2HyyEpODNDHyw=="
+    "typescript-result@3.5.2": {
+      "integrity": "sha512-kYBOXx/WOdwnfRfkOgEy+Or0VKxR9No1znb+5jPBYplksjx/koluC/OwIgBgYCCPgukxMuwXqMcv1qSDlvrlFA=="
     },
     "undici-types@6.21.0": {
       "integrity": "sha512-iwDZqg0QAGrg9Rav5H4n0M64c3mkR59cJ6wQp+7C4nI0gsmExaedaYLNO44eT4AtBBwjbTiGPMlt2Md0T9H9JQ=="
@@ -1194,7 +1195,8 @@
       "npm:octokit@^5.0.5",
       "npm:pino@^10.1.0",
       "npm:safe-stable-stringify@^2.5.0",
-      "npm:sharp@~0.34.5"
+      "npm:sharp@~0.34.5",
+      "npm:typescript-result@^3.5.2"
     ]
   }
 }

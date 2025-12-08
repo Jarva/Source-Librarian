@@ -23,7 +23,8 @@
     "octokit": "npm:octokit@^5.0.5",
     "pino": "npm:pino@^10.1.0",
     "safe-stable-stringify": "npm:safe-stable-stringify@^2.5.0",
-    "sharp": "npm:sharp@^0.34.5"
+    "sharp": "npm:sharp@^0.34.5",
+    "typescript-result": "npm:typescript-result@^3.5.2"
   },
   "compilerOptions": {
     "noImplicitOverride": false
