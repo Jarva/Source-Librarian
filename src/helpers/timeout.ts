@@ -47,12 +47,7 @@ export const reportAndTimeout = async (options: ReportAndTimeoutOptions) => {
     }),
   ];
 
-  const results = [];
   for (const step of steps) {
-    results.push(
-      await step()?.catch(err => err)
-    );
+    await step()?.catch(err => err)
   }
-
-  console.log(JSON.stringify(results));
 }

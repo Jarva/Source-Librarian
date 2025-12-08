@@ -12,7 +12,7 @@ export class MentionGuard extends MessageCreateListener {
     data: ListenerEventData[this["type"]],
     client: Client,
   ) {
-    if (!data.guild_id || !data.member || data.mention_everyone) return;
+    if (!data.guild_id || !data.member || data.mention_everyone || data.author.bot) return;
     if (!data.message.content.includes("@everyone")) return;
 
     await reportAndTimeout({

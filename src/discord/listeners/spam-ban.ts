@@ -10,13 +10,13 @@ export class SpamBan extends MessageCreateListener {
     data: ListenerEventData[this["type"]],
     client: Client,
   ) {
-    if (!data.guild_id || !data.member) return;
+    if (!data.guild_id || !data.member || data.author.bot) return;
 
     if (data.message.attachments.length >= 4) {
       reportAndTimeout({
         data,
         timeout: 15,
-        reason: "Attempted to mention @everyone",
+        reason: "Sent 4 or more images at once",
         client,
         content: "Your message was removed, and you've been given a 15-minute timeout for sending too many images at once. This is an anti-spam measure."
       });
