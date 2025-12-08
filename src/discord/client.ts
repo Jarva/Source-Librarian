@@ -7,6 +7,7 @@ import { LogUpload } from "@/discord/listeners/log-upload.ts";
 import commands from "@/discord/commands.ts";
 import { requireEnv } from "@/helpers/env.ts";
 import { MentionGuard } from "./listeners/mention-guard.ts";
+import { SpamBan } from "./listeners/spam-ban.ts";
 
 const env = requireEnv(
   [
@@ -30,6 +31,7 @@ export const client = new Client({
     new Ready(),
     new LogUpload(),
     new MentionGuard(),
+    new SpamBan(),
   ],
 }, [
   new ShardingPlugin({
