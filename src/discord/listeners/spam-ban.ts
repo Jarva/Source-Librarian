@@ -14,7 +14,7 @@ export class SpamBan extends MessageCreateListener {
   ) {
     if (!data.guild_id || !data.member || data.author.bot) return;
 
-    const words: string[] = data.message.content.split(/s+/);
+    const words: string[] = data.message.content.split(/\s+/);
 
     const count = words.reduce((acc, curr) => {
       try {
