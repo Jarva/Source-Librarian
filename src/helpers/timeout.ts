@@ -1,5 +1,4 @@
 import { ListenerEventData, Message, Routes, serializePayload, User } from "@buape/carbon";
-import { Result } from "typescript-result"
 
 const ARS_ALERT_CHANNEL = "1285648414373056595";
 
