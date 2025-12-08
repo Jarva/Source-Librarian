@@ -7,7 +7,7 @@ import { reportAndTimeout } from "../../helpers/timeout.ts";
 
 export class SpamBan extends MessageCreateListener {
   override async handle(
-    data: ListenerEventData["MESSAGE_CREATE"],
+    data: ListenerEventData[this["type"]],
     client: Client,
   ) {
     if (!data.guild_id || !data.member || data.author.bot) return;
