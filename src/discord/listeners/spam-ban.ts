@@ -8,18 +8,18 @@ import { LRUCache } from "lru-cache";
 
 const extensions = [".png", ".jpg", ".jpeg", ".gif"]
 
-const cache = new LRUCache<string, number>({
+const cache = new LRUCache<string, [string, string][]>({
   max: 500,
   ttl: 1000 * 20,
 });
 
-const increment = (id: string) => {
-  const count = (cache.get(id) ?? 0) + 1;
+const increment = (id: string, channel: string, message: string) => {
+  const messages = (cache.get(id) ?? []).concat([channel, message]);
   cache.set(
     id,
-    count
+    messages
   );
-  return count;
+  return messages;
 }
 
 export class SpamBan extends MessageCreateListener {
@@ -41,7 +41,8 @@ export class SpamBan extends MessageCreateListener {
     }, 0)
 
     if (count >= 4 || data.message.attachments.length >= 4) {
-      if (increment(data.author.id) > 1) {
+      const messages = increment(data.author.id, data.channel.id, data.message.id);
+      if (messages.length > 1) {
         reportAndTimeout({
           data,
           timeout: 15,
@@ -49,6 +50,11 @@ export class SpamBan extends MessageCreateListener {
           client,
           content: "Your message was removed, and you've been given a 15-minute timeout for sending too many images at once. This is an anti-spam measure."
         });
+        for (const [channel, message] of messages) {
+          if (message === data.message.id) continue;
+          const msg = await client.fetchMessage(channel, message);
+          await msg.delete()
+        }
       }
     }
   }
