@@ -13,10 +13,10 @@ export class SpamBan extends MessageCreateListener {
     if (!data.guild_id || !data.member || data.author.bot) return;
 
     if (data.author.id === "202407548916203520") {
-      JSON.stringify({
+      console.log(JSON.stringify({
         content: data.message.content,
         attachments: data.message.attachments.length
-      })
+      }))
     }
 
     if (data.message.attachments.length >= 4) {
