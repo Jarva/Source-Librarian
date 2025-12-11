@@ -10,7 +10,7 @@ const extensions = [".png", ".jpg", ".jpeg", ".gif"]
 
 const cache = new LRUCache<string, [string, string][]>({
   max: 500,
-  ttl: 1000 * 20,
+  ttl: 1000 * 60 * 2,
 });
 
 const increment = (id: string, channel: string, message: string) => {
