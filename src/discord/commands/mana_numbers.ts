@@ -1,18 +1,18 @@
-import {BaseEmbedCommand} from "@/discord/abstracts/embed-command.ts";
+import { BaseEmbedCommand } from "@/discord/abstracts/embed-command.ts";
 
 const lines = [
-    "Back in 1.16.5, the NumericHUD is a feature bundled in the Ars Ender Storage addon (requires the Ender Storage mod too).",
-    "From 1.18 up to 1.20.1, the Numeric HUD is provided by Ars Instrumentum wearing the Numeric Charm, a client config can be used to force the hud on even while not wearing it.",
-    "In 1.20.1 there's also Ars Mana Meter addon which in addition to enabling the debug numbers also allows some adjustments for the bar position.",
-    "In 1.21 there are multiple ways:",
-    "- Use the `/ars debug on` command, requires admin perms, turns them on for the current session. Can also be used to turn the other methods off temporarily.",
-    "- add Ars Numeric HUD, only thing it does is turning the switch on.",
-    "- if Sauce 0.0.18+ is included, usually embedded in Ars Elemental, go in `sauce_startup.toml` and flip the value from false to true. From this version of Sauce forward, source machines will display technical info on their tooltip too.",
+  "In 1.16.5, Numeric HUD is bundled with the Ars Ender Storage addon (which also requires the Ender Storage mod).",
+  "From 1.18 through 1.20.1, Numeric HUD comes from Ars Instrumentum via the Numeric Charm. A client config can force the HUD on even when you are not wearing it.",
+  "In 1.20.1, the Ars Mana Meter addon can also enable debug numbers and lets you adjust the mana bar position.",
+  "In 1.21, there are multiple options:",
+  "- Use `/ars debug on`. This requires admin permissions and enables numbers for the current session. It can also temporarily disable the other methods.",
+  "- Install Ars Numeric HUD. It only toggles the numeric HUD on.",
+  "- If Sauce 0.0.18+ is included (usually via Ars Elemental), open `sauce_startup.toml` and change the value from `false` to `true`. In Sauce 0.0.18+, source machines also show technical info in their tooltips.",
 ];
 
 export class NumbersCommand extends BaseEmbedCommand {
-    name = "numbers";
-    description = "How can i enable the numeric hud?";
-    title = "<:sense_magic:1099088954541752410>   Numeric values for source and mana";
-    lines = lines;
+  name = "numbers";
+  description = "How can I enable the numeric HUD?";
+  title = "<:sense_magic:1099088954541752410>   Numeric values for source and mana";
+  lines = lines;
 }
