@@ -7,6 +7,7 @@ import {
 } from "@buape/carbon";
 
 const MAX_ATTACHMENT_SIZE = 10 * 1024 * 1024; // 10 MiB
+const LOG_FILE_REGEX = /\.log(?:\.gz)?$/i;
 
 interface LogsSuccess {
   success: true;
@@ -26,10 +27,28 @@ const filterLogAttachments = (
   attachments: APIAttachment[],
 ): APIAttachment[] => {
   return attachments
-    .filter((attachment) =>
-      (attachment.content_type ?? "").includes("text/plain")
-    )
+    .filter((attachment) => LOG_FILE_REGEX.test(attachment.filename))
     .filter((attachment) => attachment.size <= MAX_ATTACHMENT_SIZE);
+};
+
+const isCompressedLog = (attachment: APIAttachment): boolean =>
+  attachment.filename.toLowerCase().endsWith(".log.gz");
+
+const unzipAttachment = async (
+  attachment: APIAttachment,
+  content: ArrayBuffer,
+): Promise<string> => {
+  try {
+    const stream = new Blob([content]).stream().pipeThrough(
+      new DecompressionStream("gzip"),
+    );
+    return await new Response(stream).text();
+  } catch (cause) {
+    throw new Error(
+      `Failed to decompress attachment: ${attachment.filename}`,
+      { cause },
+    );
+  }
 };
 
 const downloadAttachment = async (
@@ -44,7 +63,13 @@ const downloadAttachment = async (
     );
   }
 
-  return await response.text();
+  const content = await response.arrayBuffer();
+
+  if (isCompressedLog(attachment)) {
+    return await unzipAttachment(attachment, content);
+  }
+
+  return new TextDecoder().decode(content);
 };
 
 const uploadLog = async (content: string): Promise<string> => {
